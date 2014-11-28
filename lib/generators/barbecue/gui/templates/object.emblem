@@ -5,15 +5,16 @@ h3
 = errors.messages
 
 form submit="save" class="form"
+  <%- attributes.each do |attr| -%>
   .form-group
-    <%- attributes.each do |attr| -%>
     model-field errors=errors.name
       label.control-label <%= attr.name.humanize %>
       = input value=<%= attr.name %> class="form-control"
-    <%- end -%>
+  <%- end -%>
 
+  .button-group
     button.btn.btn-primary type="submit" Save
     button.btn.btn-default{action "rollback"} type="button" Cancel
 
     unless isNew
-      button.btn.btn-danger{action "remove"} type="button" Delete
+      button.btn.btn-danger.pull-right{action "remove"} type="button" Delete
