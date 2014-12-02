@@ -7,7 +7,7 @@ h3
 form submit="save" class="form"
   <%- attributes.each do |attr| -%>
   .form-group
-    model-field errors=errors.name
+    model-field errors=errors.<%= attr.name %>
       label.control-label <%= attr.name.humanize %>
       = input value=<%= attr.name %> class="form-control"
   <%- end -%>
