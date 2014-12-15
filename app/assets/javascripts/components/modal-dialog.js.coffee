@@ -13,3 +13,5 @@ Barbecue.ModalDialogComponent = Ember.Component.extend(
     return
   ).on("didInsertElement")
 )
+
+Ember.Handlebars.helper('modal-dialog', Barbecue.ModalDialogComponent)

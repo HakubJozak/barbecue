@@ -19,3 +19,5 @@ Barbecue.ModelFieldComponent = Ember.Component.extend({
 
 
 })
+
+Ember.Handlebars.helper('model-field', Barbecue.ModelFieldComponent)

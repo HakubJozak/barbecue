@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   s.add_dependency "active_model_serializers"
   s.add_dependency "barber"
   s.add_dependency "ember-rails"
+  s.add_dependency "emblem-rails"
 end

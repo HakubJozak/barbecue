@@ -1,4 +1,5 @@
 Barbecue.MenuDropdownComponent = Ember.Component.extend({
+  layoutName: 'components/menu-dropdown'
   tagName: 'li'
   classNames: [ 'dropdown' ]
 })
