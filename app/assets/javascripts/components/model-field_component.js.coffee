@@ -4,6 +4,8 @@ Barbecue.ModelFieldComponent = Ember.Component.extend({
   # dataToggle: 'tooltip'
   # dataPlacement: 'bottom'
 
+  layoutName: 'components/barbecue/model-field'
+
   didInsertElement: ->
 
   update_info: (->

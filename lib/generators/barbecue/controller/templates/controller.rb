@@ -8,7 +8,7 @@ require_dependency "<%= namespaced_file_path %>/application_controller"
 class <%= controller_class_name %>Controller < ApplicationController
   respond_to :json
 
-  before_action :set_<%= singular_name %>, only: [:show, :edit, :update, :destroy]
+  before_action :find_<%= singular_name %>, except: [:index,:create]
 
   # GET <%= route_url %>
   def index
@@ -48,7 +48,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   private
 
-  def set_<%= singular_name %>
+  def find_<%= singular_name %>
     @<%= singular_name %> = <%= orm_class.find(model_class_name, "params[:id]") %>
   end
 
