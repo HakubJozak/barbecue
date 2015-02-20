@@ -53,7 +53,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
 
   def <%= "#{singular_name}_params" %>
-    params.require(:<%= singular_name %>).permit(*<%= serializer_class_name %>.writable)
+    params.require(:<%= singular_name %>).permit()
   end
 end
 <% end -%>
