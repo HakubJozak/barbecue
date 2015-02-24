@@ -10,7 +10,7 @@ class <%= controller_class_name %>ControllerTest < ActionController::TestCase
   test "index" do
     get :index
     assert_response :success
-    assert_equal 1,json[<%= plural_name %>].size
+    assert_equal 1,json[:<%= plural_name %>].size
   end
 
   test "create" do
@@ -18,7 +18,7 @@ class <%= controller_class_name %>ControllerTest < ActionController::TestCase
       post :create, <%= "#{singular_name}: attributes_for(:#{singular_name})" %>
 
       assert_response :success, response.body.to_s
-      assert_not_nil json_response['<%= singular_name %>']['id'], @<%= singular_name %>.id
+      assert_not_nil json[:<%=singular_name%>][:id], @<%= singular_name %>.id
     end
   end
 

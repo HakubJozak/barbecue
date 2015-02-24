@@ -9,9 +9,9 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
 
   def create_controller_files
     template "controller.rb", File.join('app/controllers', controller_class_path, "#{controller_file_name}_controller.rb")
-    template "test.rb", File.join('test/controllers', controller_class_path, "#{controller_file_name}_controller_test.rb")    
+    template "test.rb", File.join('test/controllers', controller_class_path, "#{controller_file_name}_controller_test.rb")
   end
-  
+
   protected
 
   def serializer_class_name
