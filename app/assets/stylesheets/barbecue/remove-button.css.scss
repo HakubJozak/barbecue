@@ -1,6 +1,6 @@
 @mixin has-remove-button {
     &:hover {
-      button.remove {
+      .remove {
         display: block;
 
         background-color: transparent;

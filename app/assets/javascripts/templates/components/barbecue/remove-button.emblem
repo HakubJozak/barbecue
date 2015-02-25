@@ -1,2 +1,2 @@
-button.btn.remove
+button.btn.remove type='button'
   fa icon
