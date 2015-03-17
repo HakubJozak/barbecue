@@ -12,8 +12,12 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # GET <%= route_url %>
   def index
-    @<%= plural_name %> = <%= orm_class.all(model_class_name) %>
-    render json: @<%= plural_name %>, each_serializer: <%= serializer_class_name %>
+    if ids = params.permit(ids: [])[:ids]
+      <%= plural_name %> = <%= orm_class %>.find(ids)
+    else  
+      <%= plural_name %> = <%= orm_class.all(model_class_name) %>
+      render json: <%= plural_name %>, each_serializer: <%= serializer_class_name %>, meta: { pagination: pagination_info(<%= plural_name %>) }
+    end
   end
 
   # GET <%= route_url %>/1
