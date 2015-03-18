@@ -5,5 +5,3 @@ Barbecue.LinkLiComponent = Ember.Component.extend({
     @get('childViews').anyBy('active')
   ).property('childViews.@each.active')
 })
-
-Ember.Handlebars.helper('link-li', Barbecue.LinkLiComponent)

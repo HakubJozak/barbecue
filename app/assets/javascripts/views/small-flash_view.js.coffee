@@ -1,7 +1,7 @@
 Barbecue.SmallFlashView = Ember.View.extend
   elementName: 'p'
   classNameBindings: [ ':flash','type' ]
-  templateName: 'small_flash'
+  templateName: 'flash'
 
   type: Ember.computed.alias('flash.type')
   message: Ember.computed.alias('flash.message')
