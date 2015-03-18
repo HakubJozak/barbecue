@@ -1,7 +1,7 @@
 #
-# Usage: date-input dateBinding='yourVariableWithIsodate'
+# Usage: date dateBinding='yourVariableWithIsodate'
 #
-Barbecue.DateField = Ember.TextField.extend
+Barbecue.DateView = Ember.TextField.extend
   type: 'date'
   hasFocus: false
   placeholderBinding: 'dateFormat'
