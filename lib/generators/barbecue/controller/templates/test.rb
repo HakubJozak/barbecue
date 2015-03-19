@@ -13,6 +13,13 @@ class <%= controller_class_name %>ControllerTest < ActionController::TestCase
     assert_equal 1,json[:<%= plural_name %>].size
   end
 
+  test "index with ids" do
+    another = create(:<%= singular_name %>)
+    get :index, ids: [ @<%= singular_name %>.id, another.id ]
+    assert_response :success
+    assert_equal 2,json[:<%= plural_name %>].size
+  end
+
   test "create" do
     assert_difference('<%= model_class_name %>.count') do
       post :create, <%= "#{singular_name}: attributes_for(:#{singular_name})" %>
