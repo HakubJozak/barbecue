@@ -23,6 +23,13 @@ Ember.Application.initializer
     container.register 'view:date', Barbecue.DateView
     container.register 'transform:isodate', Barbecue.IsodateTransform
 
+Barbecue.removeTemplatePrefix = (regexp) ->
+  for key,template of Ember.TEMPLATES
+    if key.match(regexp)
+      unscoped = key.replace(regexp,'')
+      Ember.TEMPLATES[unscoped] = template;
+      console.info "Renamed template '#{key}' to '#{unscoped}'"
+
 
 # Export
 window.Barbecue = Barbecue

@@ -26,7 +26,7 @@ Barbecue.FormGroupView = Ember.View.extend
       if localeSuffix = @get('context.contentLocale')
         property = "#{attr}#{localeSuffix.capitalize()}"
       else
-        console.error("Property contentLocale not available, falling back to non-translated form-group.")
+        console.warn("Property 'contentLocale' not available. Falling back to non-translated form-group.")
         attr
     else
       attr  
