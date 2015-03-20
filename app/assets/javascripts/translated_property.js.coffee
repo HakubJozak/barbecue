@@ -36,10 +36,13 @@ Barbecue.translatedProperty = (attr,options = { fallback: false }) ->
           else
             prop
 
+        values.unshift @get "#{attr}#{localeSuffix}"
+
         # what should we return when there is no translation available?
         values.push options.default || '' # attr.capitalize()
 
         # find first non-nil
+
         values.find((x) -> x)
       else
         @get "#{attr}#{localeSuffix}"
