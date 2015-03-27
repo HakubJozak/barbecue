@@ -5,7 +5,7 @@ require_dependency "<%= namespaced_file_path %>/application_controller"
 
 <% end -%>
 <% module_namespacing do -%>
-class <%= controller_class_name %>Controller < ApplicationController
+class <%= controller_class_name %>Controller < <%= parent_controller_class_name %>
   respond_to :json
 
   before_action :find_<%= singular_name %>, except: [:index,:create]
