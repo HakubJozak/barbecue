@@ -8,16 +8,14 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
   argument :attributes, type: :array, default: [], banner: "field field ..."
 
   def create_template_files
-    sufix = options[:templates_type]
+    suffix = options[:templates_type]
 
-    template "object.#{sufix}", template_path("#{file_name}.#{sufix}")
-    template "array.#{sufix}", template_path("#{file_name.pluralize}.#{sufix}")
-    template 'array_route.js.coffee', File.join(ember_path, 'routes', class_path, "#{file_name.pluralize}_route.js.coffee")
-    template 'object_route.js.coffee', File.join(ember_path, 'routes', class_path, "#{file_name}_route.js.coffee")
-    template 'new_route.js.coffee', File.join(ember_path, 'routes', class_path, file_name.pluralize, "#{file_name.pluralize}_new_route.js.coffee")
-    #      template 'new_controller.js.coffee', File.join(ember_path, 'controllers', class_path, file_name.pluralize, "#{file_name.pluralize}_new_controller.js.coffee")
-    #      template 'object_controller.js.coffee', File.join(ember_path, 'controllers', class_path, "#{file_name}_controller.js.coffee")
-    #      template 'array_controller.js.coffee', File.join(ember_path, 'controllers', class_path, "#{file_name.pluralize}_controller.js.coffee")
+    template "object.#{suffix}", templates_path("#{file_name}.#{suffix}")
+    template "array.#{suffix}", templates_path("#{file_name.pluralize}.#{suffix}")
+    template 'array_route.js.coffee', routes_path("#{file_name.pluralize}_route.js.coffee")
+    template 'object_route.js.coffee', routes_path("#{file_name}_route.js.coffee")
+    template 'new_route.js.coffee', routes_path("#{file_name.pluralize}_new_route.js.coffee")
+    template 'object_controller.js.coffee', controllers_path("#{file_name}_controller.js.coffee")
   end
 
   def plural
@@ -30,9 +28,16 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
 
   private
 
-  def template_path(filename)
+  def templates_path(filename)
     File.join(ember_path, 'templates', class_path, filename)
   end
 
+  def routes_path(filename)
+    File.join(ember_path, 'routes', class_path, filename)
+  end
 
+  def controllers_path(filename)
+    File.join(ember_path, 'controllers', class_path, filename)
+  end
+  
 end

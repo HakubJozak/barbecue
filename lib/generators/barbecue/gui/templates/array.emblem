@@ -12,7 +12,7 @@
       th <%= attr.name.humanize %>
       <%- end -%>
     tbody
-      each
+      each itemController='<%= singular %>'
         tr
           <%- attributes.each_with_index do |attr,i| -%>
           <%- if i == 0-%>
