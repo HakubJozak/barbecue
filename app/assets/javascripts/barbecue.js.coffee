@@ -4,10 +4,10 @@
 #= require_tree ./transform
 #= require_tree ./components
 #= require_tree ./views
+#= require_tree ./helpers
 #= require_tree ./templates
 
 Barbecue = Ember.Namespace.create()
-
 
 Ember.Application.initializer
   name: 'barbecueInitializer'
@@ -19,11 +19,11 @@ Ember.Application.initializer
   initialize: (container,application) ->
     # FYI: store = container.lookup('store:main')
     # FYI: adapter = container.lookup('adapter:application')
-    console.log 'Registering barbecue components'
     container.register 'component:link-li', Barbecue.LinkLiComponent
     container.register 'view:form-group', Barbecue.FormGroupView
     container.register 'view:date', Barbecue.DateView
     container.register 'transform:isodate', Barbecue.IsodateTransform
+    console.debug 'Barbecue 0.2'
 
 Barbecue.removeTemplatePrefix = (regexp) ->
   for key,template of Ember.TEMPLATES
