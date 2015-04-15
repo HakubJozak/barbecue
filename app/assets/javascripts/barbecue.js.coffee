@@ -20,6 +20,7 @@ Ember.Application.initializer
     # FYI: store = container.lookup('store:main')
     # FYI: adapter = container.lookup('adapter:application')
     container.register 'component:link-li', Barbecue.LinkLiComponent
+#    container.register 'component:upload', Barbecue.UploadComponent
     container.register 'view:form-group', Barbecue.FormGroupView
     container.register 'view:date', Barbecue.DateView
     container.register 'transform:isodate', Barbecue.IsodateTransform
