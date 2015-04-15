@@ -1,4 +1,4 @@
-class Barbecue::MediaItemsController < Barbecue::BaseController
+class Barbecue::MediaItemsController < Barbecue::ApplicationController
   respond_to :json
 
   before_action :find_media_item, except: [:index,:create]

@@ -5,8 +5,8 @@ require 'rails/generators/rails/resource_route/resource_route_generator'
 
 class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGenerator
   source_root File.expand_path('../templates', __FILE__)
-  
-  class_option :parent, type: :string, default: 'Admin::BaseController', desc: 'Parent controller class'
+
+  class_option :parent, type: :string, default: Barbecue.parent_controller, desc: 'Parent controller class'
 
   remove_hook_for :test_framework
 
@@ -22,7 +22,7 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
   def parent_controller_class_name
     options[:parent]
   end
-  
+
   def model_class_name
     file_name.camelize
   end
@@ -36,7 +36,7 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
   #
   # :\
   #
-  # 
+  #
   # Properly nests namespaces passed into a generator
   #
   #   $ rails generate resource admin/users/products
@@ -69,7 +69,7 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
   end
 
   private
-  
+
   def route_string
     @route_string ||= ""
   end
@@ -83,6 +83,6 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
   end
 
 
-  
+
 
 end
