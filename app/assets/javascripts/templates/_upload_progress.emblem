@@ -1,0 +1,5 @@
+if isUploading
+  view 'progress-bar' value=progress
+    .progress-bar role="progressbar" aria-valuemin="0" aria-valuemax="100" style=view.style
+      | {{progress}}%
+

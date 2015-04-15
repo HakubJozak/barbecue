@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.1"
   s.add_dependency "active_model_serializers"
   s.add_dependency "barber"
-  s.add_dependency "ember-rails"
+  # BEWARE: higher versions of ember-rails may break Emblem compilation
+  s.add_dependency "ember-rails",'0.16.2'
   s.add_dependency "emblem-rails"
 end
