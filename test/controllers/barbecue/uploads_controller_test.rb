@@ -4,10 +4,8 @@ class Barbecue::UploadsControllerTest < ActionController::TestCase
   tests Barbecue::UploadsController
 
   setup do
-#    @user = create(:user)
-#    sign_in @user
-#    @controller = Barbecue::UploadsController.new
     @routes = Barbecue::Engine.routes
+    Dotenv.load
   end
 
 

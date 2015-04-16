@@ -41,19 +41,18 @@ class Barbecue::UploadsController < Barbecue::ApplicationController
     Base64.strict_encode64(
       OpenSSL::HMAC.digest(
         OpenSSL::Digest.new('sha1'),
-        ENV['AWS_SECRET_ACCESS_KEY'],
+        aws_secret_access_key,
         s3_policy
       )
     )
   end
-
 
   def s3_policy
     @s3_policy ||= Base64.strict_encode64(
       {
         expiration: @expires,
         conditions: [
-          { bucket: ENV['S3_BUCKET_NAME'] },
+          { bucket: s3_bucket_name },
           { acl: 'public-read' },
           { expires: @expires },
           { success_action_status: '201' },
@@ -70,5 +69,20 @@ class Barbecue::UploadsController < Barbecue::ApplicationController
     params.permit(:type,:name,:size)
   end
 
+  def aws_secret_access_key
+    require_env('AWS_SECRET_ACCESS_KEY')
+  end
+
+  def s3_bucket_name
+    require_env('S3_BUCKET_NAME')
+  end
+
+  def require_env(key)
+    if value = ENV[key]
+      value
+    else
+      raise "Missing #{key} environment variable"
+    end
+  end
 
 end

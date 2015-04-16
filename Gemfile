@@ -14,4 +14,9 @@ gemspec
 # gem 'debugger'
 
 
-gem 'pg'
+group :test, :development do
+  gem 'pg'
+  gem 'dotenv'
+  gem 'pry'  
+end
+
