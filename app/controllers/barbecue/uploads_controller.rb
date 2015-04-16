@@ -1,12 +1,12 @@
 class Barbecue::UploadsController < Barbecue::ApplicationController
-  respond_to :json
 
   def show
     @expires = Time.now.utc + 10.hour
     filename = upload_params[:name].parameterize
     today = Date.today
-
-    @key = "#{Rails.env}/#{type}/source/#{ today.year }/#{ today.month }/#{ today.day }/#{ filename }"
+    uuid = SecureRandom.uuid
+    
+    @key = "#{Rails.env}/#{type}/source/#{ today.year }/#{ today.month }/#{ today.day }/#{ uuid }/#{ filename }"
 
     render json: {
       acl: 'public-read',
