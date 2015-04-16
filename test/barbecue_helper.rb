@@ -1,5 +1,5 @@
 class ActiveSupport::TestCase
-  def json_response
-    JSON.parse(response.body)
+  def json
+    JSON.parse(response.body).deep_symbolize!
   end
 end
