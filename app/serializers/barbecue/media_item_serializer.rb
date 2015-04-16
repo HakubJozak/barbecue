@@ -6,7 +6,9 @@ class Barbecue::MediaItemSerializer < Barbecue::BaseSerializer
   end
 
   def thumbnail_url
-    object.thumb('400x400#').url if object.respond_to?(:photo) && !object.photo.nil?
+    if object.respond_to?(:photo) && !object.photo.nil?
+      object.thumb('400x400#').url
+    end
   end
 
 

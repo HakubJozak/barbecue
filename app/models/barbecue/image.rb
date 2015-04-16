@@ -1,26 +1,31 @@
 module Barbecue
   class Image < MediaItem
-    translates :title
+    translates :title, :copyright
 
     serialize :thumbnail_sizes, Hash
-
+    dragonfly_accessor :photo
+    
     before_validation do
-      self.photo_url = source_url
+      if source_url_changed?
+        self.photo_url = source_url
+        self.thumbnail_sizes = {}
+      end
     end
 
-    dragonfly_accessor :photo
 
-    def thumb(size)
-      if sizes = thumbnail_sizes[size]
+
+    # User w_x_h = 400x250# or similar
+    #
+    def thumb(w_x_h)
+      if sizes = thumbnail_sizes[w_x_h]
         ret = OpenStruct.new(sizes)
         ret.url = Dragonfly.app.remote_url_for(ret.uid)
         ret
       else
-        sizes = thumbnail_sizes[size] = compute_sizes(size)
+        thumbnail_sizes[w_x_h] = compute_sizes(w_x_h)
         update_column(:thumbnail_sizes,thumbnail_sizes)
-        OpenStruct.new(sizes)
+        OpenStruct.new(thumbnail_sizes[w_x_h])
       end
-
     end
 
     private

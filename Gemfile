@@ -16,7 +16,11 @@ gemspec
 
 group :test, :development do
   gem 'pg'
-  gem 'dotenv'
+  gem 'dotenv-rails'
   gem 'pry'  
 end
+
+gem 'traco'
+gem 'dragonfly'
+gem 'dragonfly-s3_data_store'
 

@@ -4,7 +4,7 @@ class AddMediaTables < ActiveRecord::Migration
       t.string   :title_cs
       t.string   :title_en
       t.string   :copyright_cs
-      t.string   :copyright_en      
+      t.string   :copyright_en
       t.string   :source_url, limit: 2048
       t.string   :type, default: 'Image', null: false
       t.string   :photo_uid
@@ -22,7 +22,7 @@ class AddMediaTables < ActiveRecord::Migration
     #   t.integer  :cover_columns, limit: 2
     #   t.string   :title_cs
     #   t.string   :title_en
-    #   t.timestamps null: false      
+    #   t.timestamps null: false
     # end
   end
 end

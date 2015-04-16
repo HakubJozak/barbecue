@@ -56,7 +56,7 @@ class Barbecue::MediaItemsController < Barbecue::ApplicationController
   end
 
   def media_item_params
-    params.require(:media_item).permit(:title_en,:url_original,:title_cs,:cover_url, :youtube_playlist_url)
+    params.require(:media_item).permit(:title_en,:title_cs,:source_url,:copyright_cs,:copyright_en)
   end
 
 end
