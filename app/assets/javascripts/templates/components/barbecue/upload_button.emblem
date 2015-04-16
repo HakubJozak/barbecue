@@ -1,4 +1,1 @@
-li.pull-right
-  .btn.btn-success.btn-file
-    ' {{fa 'plus'}} Upload Media
-    yield
+/ TODO

@@ -1,5 +1,5 @@
 Barbecue.UploadButtonComponent = EmberUploader.FileField.extend
-  layoutName: 'components/barbecue/upload_button'
+#  layoutName: 'components/barbecue/upload_button'
   classNames: ['upload-button']
   multiple: true
   url: '/admin/upload'
