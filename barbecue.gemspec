@@ -18,10 +18,12 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 4.1"
-  s.add_dependency "traco"
   s.add_dependency "active_model_serializers"
   s.add_dependency "barber"
   # BEWARE: higher versions of ember-rails may break Emblem compilation
   s.add_dependency "ember-rails",'0.16.2'
   s.add_dependency "emblem-rails"
+
+  # TODO: separate to suspenders
+  s.add_dependency "traco"
 end
