@@ -22,6 +22,7 @@ Barbecue.UploadButtonComponent = EmberUploader.FileField.extend
       name = @_filename(response)
       uploadedUrl = $(response).find('Location')[0].textContent
       url = decodeURIComponent(uploadedUrl)
+      console.debug 'S3 Upload finished: ', url
       @sendAction('uploaded',url,name,@get('mimeType'))
 
     uploader.on 'progress', (e) =>
