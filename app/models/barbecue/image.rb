@@ -12,8 +12,6 @@ module Barbecue
       end
     end
 
-
-
     # User w_x_h = 400x250# or similar
     #
     def thumb(w_x_h)

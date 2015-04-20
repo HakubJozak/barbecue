@@ -4,6 +4,7 @@
 #= require_tree ./transform
 #= require_tree ./components
 #= require_tree ./views
+#= require_tree ./mixins
 #= require_tree ./helpers
 #= require_tree ./templates
 
