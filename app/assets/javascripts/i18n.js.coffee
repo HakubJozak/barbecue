@@ -1,5 +1,5 @@
 I18n =
-  # User interface local     
+  # User interface local
   # TODO: make it dynamic
   locale: 'en'
 
@@ -15,7 +15,7 @@ I18n =
 
   t: (key) ->
 
-    uiLocale = 'en'    
+    uiLocale = 'en'
 
     if key
       bits = key.toString().split('.')
