@@ -1,3 +1,5 @@
+#= require ember-uploader/dist/ember-uploader.js
+
 #= require_self
 #= require ./i18n
 #= require ./translated_property
@@ -23,7 +25,7 @@ Ember.Application.initializer
     # FYI: store = container.lookup('store:main')
     # FYI: adapter = container.lookup('adapter:application')
     container.register 'component:link-li', Barbecue.LinkLiComponent
-#    container.register 'component:upload-button', Barbecue.UploadButtonComponent
+    container.register 'component:upload-button', Barbecue.UploadButtonComponent
     container.register 'component:bbq-progress-bar', Barbecue.ProgressBar
     container.register 'view:form-group', Barbecue.FormGroupView
     container.register 'view:date', Barbecue.DateView

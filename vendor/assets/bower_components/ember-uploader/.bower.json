@@ -1,0 +1,30 @@
+{
+  "name": "ember-uploader",
+  "version": "0.3.4",
+  "main": "ember-uploader.js",
+  "dependencies": {
+    "ember": ">= 1.7.0"
+  },
+  "devDependencies": {
+    "qunit": "~1.13.0",
+    "loader.js": "~1.0.1"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "homepage": "https://github.com/benefitcloud/ember-uploader",
+  "_release": "0.3.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.3.4",
+    "commit": "02dec762ce91f7cdf1e2937a66a4828ec6d5787a"
+  },
+  "_source": "git://github.com/benefitcloud/ember-uploader.git",
+  "_target": "0.3.4",
+  "_originalSource": "ember-uploader"
+}
