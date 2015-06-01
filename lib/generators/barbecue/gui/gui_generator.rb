@@ -16,6 +16,7 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
     template 'object_route.js.coffee', routes_path("#{file_name}_route.js.coffee")
     template 'new_route.js.coffee', routes_path("#{file_name.pluralize}_new_route.js.coffee")
     template 'object_controller.js.coffee', controllers_path("#{file_name}_controller.js.coffee")
+    template "model.js.coffee", models_path("#{file_name}.js.coffee")
   end
 
   def plural
@@ -34,6 +35,10 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
 
   def routes_path(filename)
     File.join(ember_path, 'routes', class_path, filename)
+  end
+
+  def models_path(filename)
+    File.join(ember_path, 'models', class_path, filename)
   end
 
   def controllers_path(filename)
