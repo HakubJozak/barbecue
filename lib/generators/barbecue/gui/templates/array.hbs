@@ -17,11 +17,11 @@
         <% if i == 0 -%>
         <td>
           {{#link-to '<%= singular%>' this}}
-            {{<%= attr.name %>}}
+            {{<%= attr.name.camelize(:lower) %>}}
           {{/link-to}}
         </td>
         <% else -%>
-        <td>{{<%= attr.name %>}}</td>
+        <td>{{<%= attr.name.camelize(:lower) %>}}</td>
         <% end -%>
         <% end -%>
       </tr>
