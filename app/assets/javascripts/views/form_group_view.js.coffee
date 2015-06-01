@@ -1,10 +1,9 @@
 Barbecue.FormGroupView = Ember.View.extend
-  translated: true
+  translated: false
   classNameBindings:  [ ":form-group", "hasError:has-error" ]
   layoutName: 'form_group_layout'
 
   errorMessages: (->
-
     errors = @get("context.errors.#{@_propertyName()}")
 
     if errors
@@ -21,12 +20,12 @@ Barbecue.FormGroupView = Ember.View.extend
 
   _propertyName: ->
     attr = @get('attr')
-    
-    if @get('translated')    
+
+    if @get('translated')
       if localeSuffix = @get('context.contentLocale')
         property = "#{attr}#{localeSuffix.capitalize()}"
       else
-        console.warn("Property 'contentLocale' not available. Falling back to non-translated form-group.")
+        console.warn("Cannot find 'contentLocale' for '#{attr}'. Falling back to non-translated form-group.")
         attr
     else
-      attr  
+      attr

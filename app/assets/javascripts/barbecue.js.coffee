@@ -27,6 +27,7 @@ Ember.Application.initializer
     container.register 'component:link-li', Barbecue.LinkLiComponent
     container.register 'component:upload-button', Barbecue.UploadButtonComponent
     container.register 'component:bbq-progress-bar', Barbecue.ProgressBar
+    container.register 'view:bbq-text-field', Barbecue.TextField
     container.register 'view:form-group', Barbecue.FormGroupView
     container.register 'view:date', Barbecue.DateView
     container.register 'transform:isodate', Barbecue.IsodateTransform

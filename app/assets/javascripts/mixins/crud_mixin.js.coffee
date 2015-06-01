@@ -1,7 +1,7 @@
 Barbecue.CrudMixin = Ember.Mixin.create
   actions:
     save: (record) ->
-      record ||= @currentModel
+      record ||= @_guessRecord()
       record.get('errors').clear()
       record.save().then ( (saved_record) =>
         @afterSave(saved_record)
@@ -11,14 +11,17 @@ Barbecue.CrudMixin = Ember.Mixin.create
       false
 
     rollback: (record) ->
-      record ||= @currentModel
+      record ||= @_guessRecord()
       record.get('errors').clear()
       record.rollback()
       @afterRollback()
       false
 
     remove: (record) ->
-      record ||= @currentModel
+      record ||= @_guessRecord()
+      title = @_guessTitle(record)
+      return unless confirm("Do you really want to delete #{title}?")
+      
       if record.get('isNew')
         record.deleteRecord()
       else
@@ -29,6 +32,12 @@ Barbecue.CrudMixin = Ember.Mixin.create
            @flashError "Failed."
           )
       false
+
+  _guessRecord: ->
+    @currentModel || @get('model')
+
+  _guessTitle: (record) ->
+    @get('title') || record.get('title')
 
   afterRemove: (record) ->
     @transitionTo 'application'

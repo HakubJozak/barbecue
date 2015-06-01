@@ -1,0 +1,3 @@
+view 'form-group' attrBinding=view.attr
+  label.control-label view.label
+    = yield
