@@ -7,6 +7,7 @@
 #= require_tree ./transform
 #= require_tree ./controllers
 #= require_tree ./components
+#= require_tree ./models
 #= require_tree ./views
 #= require_tree ./mixins
 #= require_tree ./helpers
@@ -33,6 +34,7 @@ Ember.Application.initializer
     container.register 'view:date', Barbecue.DateView
     container.register 'transform:isodate', Barbecue.IsodateTransform
     container.register 'controller:contentLocale', Barbecue.ContentLocaleController
+    container.register 'controller:upload', Barbecue.UploadController
     console.debug 'Barbecue 0.3'
 
 Barbecue.removeTemplatePrefix = (regexp) ->
