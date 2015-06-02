@@ -1,10 +1,10 @@
-Barbecue.SmallFlashView = Ember.View.extend
+Barbecue.FlashView = Ember.View.extend
   elementName: 'p'
   classNameBindings: [ ':flash','type' ]
   templateName: 'flash'
 
-  type: Ember.computed.alias('flash.type')
-  message: Ember.computed.alias('flash.message')
+  type: Ember.computed.alias('controller.type')
+  message: Ember.computed.alias('controller.message')        
 
   actions:
     close: ->
@@ -17,4 +17,6 @@ Barbecue.SmallFlashView = Ember.View.extend
       Ember.run.later((=> @$().fadeOut() ),5000)
     else
       console.log 'No flash to show.'
-  ).observes('flash').on('init')
+  ).observes('message').on('init')
+
+

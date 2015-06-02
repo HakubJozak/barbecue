@@ -29,10 +29,11 @@ Ember.Application.initializer
     container.register 'component:bbq-progress-bar', Barbecue.ProgressBar
     container.register 'view:bbq-text-field', Barbecue.TextField
     container.register 'view:form-group', Barbecue.FormGroupView
+    container.register 'view:flash', Barbecue.FlashView    
     container.register 'view:date', Barbecue.DateView
     container.register 'transform:isodate', Barbecue.IsodateTransform
     container.register 'controller:contentLocale', Barbecue.ContentLocaleController
-    console.debug 'Barbecue 0.2'
+    console.debug 'Barbecue 0.3'
 
 Barbecue.removeTemplatePrefix = (regexp) ->
   for key,template of Ember.TEMPLATES
