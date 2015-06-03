@@ -1,7 +1,9 @@
+# Override this if you want other locales
+Barbecue.CONTENT_LOCALES = ['cs','en']
+
 # Requirements:
 #   - property 'contentLocale' defined in the context
 #   - setting Barbecue.CONTENT_LOCALES to a list of available locales ['cs','en']
-#
 #
 # Usage:
 #
@@ -12,12 +14,8 @@
 # Will result in a dynamic property setting titleEn and titleCs
 # depending on the currently set 'contentLocale'.
 #
-#
 Barbecue.translatedProperty = (attr,options = { fallback: false }) ->
 
-  unless Barbecue.CONTENT_LOCALES      
-    throw "Please set Barbecue.CONTENT_LOCALES to something like ['cs','en']"
-        
   accessor = (that,value) ->
     localeSuffix = @get('contentLocale').capitalize()
 

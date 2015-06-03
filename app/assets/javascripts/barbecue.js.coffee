@@ -30,10 +30,11 @@ Ember.Application.initializer
     container.register 'component:bbq-progress-bar', Barbecue.ProgressBar
     container.register 'view:bbq-text-field', Barbecue.TextField
     container.register 'view:form-group', Barbecue.FormGroupView
-    container.register 'view:flash', Barbecue.FlashView    
+    container.register 'view:flash', Barbecue.FlashView
     container.register 'view:date', Barbecue.DateView
     container.register 'transform:isodate', Barbecue.IsodateTransform
     container.register 'controller:contentLocale', Barbecue.ContentLocaleController
+    container.register 'controller:mediaItem', Barbecue.MediaItemController    
     container.register 'controller:upload', Barbecue.UploadController
     console.debug 'Barbecue 0.3'
 

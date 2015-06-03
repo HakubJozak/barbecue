@@ -11,14 +11,14 @@ class Barbecue::MediaItemsController < Barbecue::ApplicationController
 
   # GET /admin/media_items/1
   def show
-    render json: @media_item, serializer: Barbecue::MediaItemSerializer
+    render_media_item
   end
 
   # POST /admin/media_items
   def create
     @media_item = items.new(media_item_params)
     if @media_item.save
-      render json: @media_item, serializer: Barbecue::MediaItemSerializer
+      render_media_item
     else
       render json: { errors:  @media_item.errors }, status: 422
     end
@@ -27,7 +27,7 @@ class Barbecue::MediaItemsController < Barbecue::ApplicationController
   # PATCH/PUT /admin/media_items/1
   def update
     if @media_item.update(media_item_params)
-      render json: @media_item, serializer: Barbecue::MediaItemSerializer
+      render_media_item
     else
       render json: { errors:  @media_item.errors }, status: 422
     end
@@ -55,8 +55,13 @@ class Barbecue::MediaItemsController < Barbecue::ApplicationController
     end
   end
 
+  # OVERRIDE
   def media_item_params
     params.require(:media_item).permit(:title_en,:title_cs,:source_url,:copyright_cs,:copyright_en)
+  end
+
+  def render_media_item
+    render json: @media_item, serializer: Barbecue::MediaItemSerializer    
   end
 
 end
