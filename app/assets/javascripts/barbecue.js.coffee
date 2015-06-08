@@ -36,6 +36,7 @@ Ember.Application.initializer
     container.register 'controller:contentLocale', Barbecue.ContentLocaleController
     container.register 'controller:mediaItem', Barbecue.MediaItemController    
     container.register 'controller:upload', Barbecue.UploadController
+    container.register 'controller:flash', Barbecue.FlashController
     console.debug 'Barbecue 0.3'
 
 Barbecue.removeTemplatePrefix = (regexp) ->
