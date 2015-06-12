@@ -6,7 +6,8 @@ module Barbecue::Dsl
   class Commander < Rails::Generators::Base
     def generate(*args)
       # FIXME just for testing!
-      super *args.concat(['-p'])
+      # super *args.concat(['-p'])
+      super
     end
   end
 
@@ -43,17 +44,26 @@ module Barbecue::Dsl
 
     def initialize(name)
       @name = name
+      @attributes = []
     end
 
+    def translated(attr)
+      I18n.available_locales.each do |locale|
+        self.string("#{attr}_#{locale}")        
+      end
+    end
+
+    [ 'string','datetime','integer'].each do |type|
+      define_method type do |name|
+        @attributes << "#{name}:#{type}"
+      end
+    end
+    
     def generate!(commander)
+      attributes = @attributes.join(' ')
       commander.generate 'model',"#{@name} #{attributes}"
     end
 
-    private
-
-    def attributes
-      'title_cs:string title_en:string'
-    end
   end
 end
 

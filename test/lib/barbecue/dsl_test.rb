@@ -8,11 +8,11 @@ class Barbecue::DslTest < ActiveSupport::TestCase
       uses :media_placements
 
       model :project do
-        # translated :title
+        translated :title
         # translated :meta_title
         # translated :perex
         # translated :content
-        # string :slug
+        string :slug
         # has_images :screenshots
 
         # acts_as_list
