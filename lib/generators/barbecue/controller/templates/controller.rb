@@ -58,7 +58,7 @@ class <%= controller_class_name %>Controller < <%= parent_controller_class_name 
   end
 
   def <%= "#{singular_name}_params" %>
-    params.require(:<%= singular_name %>).permit()
+    params.require(:<%= singular_name %>).permit(<%= permitted_attributes %>)
   end
 end
 <% end -%>

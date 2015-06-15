@@ -19,6 +19,10 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
 
   protected
 
+  def permitted_attributes
+    attributes.map { |a| ":#{a.name}" }.join(',')
+  end
+
   def parent_controller_class_name
     options[:parent]
   end

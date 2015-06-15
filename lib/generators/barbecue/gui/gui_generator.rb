@@ -5,7 +5,7 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
 
   class_option :templates_type, desc: "Engine for Templates - 'hbs' or 'emblem'", default: 'emblem', aliases: "-t"
 
-  argument :attributes, type: :array, default: [], banner: "field field ..."
+  argument :attributes, type: :array, default: [], banner: "field:type field:type ..."
 
   def create_template_files
     suffix = options[:templates_type]
@@ -35,17 +35,18 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
     attributes.select(&method(:translated_attribute?)).map(&method(:without_locale)).uniq
   end
   
-
   def simple_attributes
     attributes.reject &self.method(:translated_attribute?)
   end
 
   private
 
+  # template helper   
   def without_locale(attr)
     attr.name[0..-4]
   end
   
+  # template helper
   def translated_attribute?(attr)
     locales = I18n.available_locales.join('|')
     attr.name =~ /.*_(#{locales})$/

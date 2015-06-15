@@ -27,7 +27,9 @@ module Barbecue::Dsl
         # TODO
       when :media_items
         # TODO
-        # @generator.generate 'barbecue:media_items_migration'
+        # @generator.invoke 'barbecue:media_items_migration'
+      when :menu_items        
+        # TODO
       else
         raise "Unknown feature '#{feature}'"
       end
@@ -45,7 +47,7 @@ module Barbecue::Dsl
   class ModelBuilder
 
     class Attribute < Struct.new(:name,:type,:options)
-      def for_model
+      def for_backend
         if options[:translated]
           I18n.available_locales.map {|locale| "#{name}_#{locale}:#{type}" }
         else
@@ -53,11 +55,7 @@ module Barbecue::Dsl
         end
       end
 
-      def for_controller
-        for_model
-      end
-
-      def for_gui
+      def for_ember
         []
       end
     end
@@ -75,8 +73,9 @@ module Barbecue::Dsl
 
     def invoke(generator)
       attributes = @attributes.join(' ')
-      generator.invoke 'model', [ @name.to_s, @attributes.map(&:for_model) ].flatten
-      generator.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", @attributes.map(&:for_controller) ].flatten      
+      generator.invoke 'model', [ @name.to_s, @attributes.map(&:for_backend) ].flatten
+      generator.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", @attributes.map(&:for_backend) ].flatten      
+      generator.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", @attributes.map(&:for_backend) ].flatten      
     end
     
   end
