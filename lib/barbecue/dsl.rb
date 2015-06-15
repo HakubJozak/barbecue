@@ -75,6 +75,11 @@ module Barbecue::Dsl
       @attributes = []
     end
 
+    def human_name
+      @name.to_s.pluralize.humanize.capitalize      
+    end
+
+
     [ 'text','string','datetime','integer'].each do |type|
       define_method type do |name,options = {}|
         @attributes << Attribute.new(name,type,options)

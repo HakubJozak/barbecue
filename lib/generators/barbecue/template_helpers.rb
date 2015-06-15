@@ -1,4 +1,4 @@
-module TemplateHelpers
+module Barbecue::TemplateHelpers
 
   def without_locale(attr)
     if translated_attribute?(attr)

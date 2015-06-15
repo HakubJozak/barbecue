@@ -1,0 +1,4 @@
+<%- @blueprint.models.each do |model| -%>
+link-li 
+  link-to '<%= model.human_name %>' '<%= model.name.to_s.pluralize %>'
+<%- end -%>

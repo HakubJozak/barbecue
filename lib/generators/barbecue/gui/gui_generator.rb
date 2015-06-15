@@ -1,24 +1,20 @@
 require 'generators/ember/template_generator'
-require_relative './template_helpers'
+require_relative '../template_helpers'
 require_relative '../generator_helpers'
 
 
 class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
 
-  include TemplateHelpers
+  include Barbecue::TemplateHelpers
   include Barbecue::GeneratorHelpers
 
   source_root File.expand_path('../templates', __FILE__)
 
-  class_option :templates_type, desc: "Engine for Templates - 'hbs' or 'emblem'", default: 'emblem', aliases: "-t"
-
   argument :attributes, type: :array, default: [], banner: "field:type field:type ..."
 
   def create_template_files
-    suffix = options[:templates_type]
-
-    template "object.#{suffix}", templates_path("#{file_name}.#{suffix}")
-    template "array.#{suffix}", templates_path("#{file_name.pluralize}.#{suffix}")
+    template "object.emblem", templates_path("#{file_name}.emblem")
+    template "array.emblem", templates_path("#{file_name.pluralize}.emblem")
     template 'array_route.js.coffee', routes_path("#{file_name.pluralize}_route.js.coffee")
     template 'object_route.js.coffee', routes_path("#{file_name}_route.js.coffee")
     template 'new_route.js.coffee', routes_path("#{file_name.pluralize}_new_route.js.coffee")
