@@ -4,11 +4,6 @@ module Barbecue::Dsl
   private
 
   class Commander < Rails::Generators::Base
-    def generate(*args)
-      # FIXME just for testing!
-      # super *args.concat(['-p'])
-      super
-    end
   end
 
   def self.scaffold(&block)
