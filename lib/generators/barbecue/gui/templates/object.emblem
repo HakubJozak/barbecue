@@ -3,6 +3,12 @@ h3
   = name
 
 form submit="save" class="form"
+  <%- translated_attribute_names.each do |attr_name| -%>
+  view 'form-group' attr="<%= attr_name %>"
+    label.control-label <%= attr_name.humanize %>
+    = input value=<%= attr_name.camelize(:lower) %> class="form-control"
+  <%- end -%>
+
   <%- simple_attributes.each do |attr| -%>
   view 'form-group' attr="<%= attr.name %>"
     label.control-label <%= attr.name.humanize %>

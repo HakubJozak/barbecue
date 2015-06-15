@@ -47,17 +47,34 @@ module Barbecue::Dsl
   class ModelBuilder
 
     class Attribute < Struct.new(:name,:type,:options)
+
       def for_backend
-        if options[:translated]
-          I18n.available_locales.map {|locale| "#{name}_#{locale}:#{type}" }
-        else
-          [ "#{name}:#{type}" ]
-        end
+        to_args(type)
       end
 
       def for_ember
-        []
+        to_args(ember_type)
       end
+
+      private
+      
+      def to_args(typename)
+        if options[:translated]
+          I18n.available_locales.map {|locale| "#{name}_#{locale}:#{typename}" }
+        else
+          [ "#{name}:#{typename}" ]
+        end
+      end
+
+      def ember_type
+        case type
+        when 'datetime' then 'isodate'
+        when 'integer','float' then 'numeric'
+        when 'text' then 'string'
+        else type
+        end
+      end
+      
     end
     
     def initialize(name)
@@ -75,7 +92,7 @@ module Barbecue::Dsl
       attributes = @attributes.join(' ')
       generator.invoke 'model', [ @name.to_s, @attributes.map(&:for_backend) ].flatten
       generator.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", @attributes.map(&:for_backend) ].flatten      
-      generator.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", @attributes.map(&:for_backend) ].flatten      
+      generator.invoke 'barbecue:gui', [ @name.to_s, @attributes.map(&:for_ember) ].flatten      
     end
     
   end

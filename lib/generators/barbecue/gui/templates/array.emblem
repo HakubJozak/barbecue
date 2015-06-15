@@ -8,19 +8,19 @@
 
   table.table
     thead
-      <%- attributes.each do |attr| -%>
-      th <%= attr.name.humanize %>
+      <%- translated_attribute_names.each do |attr_name| -%>
+      th <%= attr_name.humanize %>
       <%- end -%>
     tbody
       each itemController='<%= singular %>'
         tr
-          <%- attributes.each_with_index do |attr,i| -%>
+          <%- translated_attribute_names.each_with_index do |attr_name,i| -%>
           <%- if i == 0-%>
           td
             = link-to '<%= singular %>' this
-              = <%= attr.name %>
+              = <%= attr_name.camelize(:lower) %>
           <%- else -%>
-          td = <%= attr.name %>
+          td = <%= attr_name.camelize(:lower) %>
           <%- end -%>
           <%- end -%>
 
