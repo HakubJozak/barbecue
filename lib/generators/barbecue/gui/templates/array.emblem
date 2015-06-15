@@ -16,7 +16,7 @@
       <%- end -%>
       th
     tbody
-      each <%= singular %> in <%= plural %> itemController='<%= singular %>'
+      each <%= singular %> in this itemController='<%= singular %>'
         tr
           <%- translated_attribute_names.each do |attr_name| -%>
           td = <%= singular %>.<%= attr_name.camelize(:lower) %>
