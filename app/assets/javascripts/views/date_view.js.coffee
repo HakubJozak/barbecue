@@ -25,7 +25,7 @@ Barbecue.DateView = Ember.TextField.extend
     return if @get('hasFocus')
     date = @get('date')
 
-    if date
+    unless date == 'undefined'
       @set('value', moment(date).format(@get('dateFormat')))
   ).observes('date')
 
@@ -36,6 +36,6 @@ Barbecue.DateView = Ember.TextField.extend
     @set('hasFocus', false)
     @updateValue()
 
-# TODO: 
+# TODO:
 # Barbecue.DatetimeView = Barbecue.DateView.extend
 #   type: 'datetime-local'
