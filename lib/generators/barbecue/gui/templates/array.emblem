@@ -16,13 +16,13 @@
       <%- end -%>
       th
     tbody
-      each itemController='<%= singular %>'
+      each <%= singular %> in <%= plural %> itemController='<%= singular %>'
         tr
           <%- translated_attribute_names.each do |attr_name| -%>
-          td = <%= attr_name.camelize(:lower) %>
+          td = <%= singular %>.<%= attr_name.camelize(:lower) %>
           <%- end -%>
           <%- simple_attributes.each do |attr| -%>
-          td = <%= attr.name.camelize(:lower) %>
+          td = <%= singular %>.<%= attr.name.camelize(:lower) %>
           <%- end -%>
           td
             = link-to '<%= singular %>' this
