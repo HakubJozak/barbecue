@@ -2,5 +2,5 @@
   # photo: DS.belongsTo 'mediaItem'
 
   <%- attributes.each do |attr| -%>
-  <%= attr.name.camelize(:lower) %>: DS.attr '<%= attr.type || 'string' %>'
+  <%= attr.name.camelize(:lower) %>: DS.attr '<%= ember_type(attr) %>'
   <%- end -%>

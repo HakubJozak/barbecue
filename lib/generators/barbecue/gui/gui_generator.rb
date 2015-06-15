@@ -29,26 +29,26 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
       %{= input value=#{value} type='#{html_type}'}
     end
 
-    def text_field(attr)
+    def textarea(attr)
       value = without_locale(attr).camelize(:lower)
-      %{= textarea value=#{value} }
+      %{= textarea value=#{value} class='form-control'}
     end  
     
     def input_field(attr)
       case attr.type
-      when 'string' then string_field(attr)
-      when 'text' then text_field(attr)
-      when 'integer' then string_field(attr,'number')      
-      when 'datetime' then date_field(attr)
+      when :string then string_field(attr)
+      when :text then textarea(attr)
+      when :integer then string_field(attr,'number')      
+      when :datetime then date_field(attr)
       end
     end
 
-    def ember_type
-      case type
-      when 'datetime' then 'isodate'
-      when 'integer','float' then 'numeric'
-      when 'text' then 'string'
-      else type
+    def ember_type(attr)
+      case attr.type
+      when :datetime then 'isodate'
+      when :integer,'float' then 'numeric'
+      when :text then 'string'
+      else :string
       end
     end
 
