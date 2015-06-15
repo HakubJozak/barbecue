@@ -12,7 +12,7 @@ form submit="save" class="form"
   <%- simple_attributes.each do |attr| -%>
   view 'form-group' attr="<%= attr.name %>"
     label.control-label <%= attr.name.humanize %>
-    = input value=<%= attr.name.camelize(:lower) %> class="form-control"
+    <%= input_field(attr) %>
   <%- end -%>
 
   .button-group
