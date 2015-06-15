@@ -3,7 +3,7 @@ h3
   = name
 
 form submit="save" class="form"
-  <%- attributes.each do |attr| -%>
+  <%- simple_attributes.each do |attr| -%>
   view 'form-group' attr="<%= attr.name %>"
     label.control-label <%= attr.name.humanize %>
     = input value=<%= attr.name.camelize(:lower) %> class="form-control"

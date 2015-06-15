@@ -3,7 +3,7 @@
 {{errors.messages}}
 
 <form {{ action 'save' on='submit'}}>
-  <% attributes.each do |attr| -%>
+  <% simple_attributes.each do |attr| -%>
   <div class="form-group">
     {{#model-field errors=errors.<%= attr.name %>}}
       <label class=" control-label"><%= attr.name.humanize %></label>

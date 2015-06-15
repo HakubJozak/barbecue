@@ -1,4 +1,4 @@
-<%= application_name.camelize %>.<%= class_name.camelize %>Controller = Ember.ArrayController.extend({
+<%= application_name.camelize %>.<%= class_name.camelize %>Controller = Ember.ArrayController.extend
   actions:
     add: ->
       <%= name %> = @store.createRecord('<%= name %>')
@@ -9,6 +9,3 @@
         @get('model').removeObject(<%= name %>)
       else
         <%= name %>.destroyRecord()
-
-
-})

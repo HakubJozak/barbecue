@@ -2,6 +2,6 @@
   needs: ['contentLocale']
   contentLocale: Ember.computed.alias('controllers.contentLocale.current')
 
-  <%- attributes.each do |attr| -%>
-  <%= attr.name.camelize(:lower) %>: Barbecue.translatedProperty('<%= attr.name.camelize(:lower) %>')
+  <%- translated_attribute_names.each do |name| -%>
+  <%= name.camelize(:lower) %>: Barbecue.translatedProperty('<%= name.camelize(:lower) %>')
   <%- end -%>

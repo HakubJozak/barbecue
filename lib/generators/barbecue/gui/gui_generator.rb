@@ -27,7 +27,29 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
     name
   end
 
+  def translated_attributes
+    attributes.select &self.method(:translated_attribute?)
+  end
+
+  def translated_attribute_names
+    attributes.select(&method(:translated_attribute?)).map(&method(:without_locale)).uniq
+  end
+  
+
+  def simple_attributes
+    attributes.reject &self.method(:translated_attribute?)
+  end
+
   private
+
+  def without_locale(attr)
+    attr.name[0..-4]
+  end
+  
+  def translated_attribute?(attr)
+    locales = I18n.available_locales.join('|')
+    attr.name =~ /.*_(#{locales})$/
+  end
 
   def templates_path(filename)
     File.join(ember_path, 'templates', class_path, filename)
@@ -44,5 +66,5 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
   def controllers_path(filename)
     File.join(ember_path, 'controllers', class_path, filename)
   end
-  
+
 end
