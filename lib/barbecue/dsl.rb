@@ -1,13 +1,21 @@
 require 'rails/generators/rails/app/app_generator'
+require 'pry'
+
 
 module Barbecue::Dsl
 
-  def self.blueprint(generator,&block)
-    ProjectBuilder.new(generator).instance_eval(&block) if block_given?
+  def self.blueprint(generator, definition = nil, opts = {}, &block)
+    builder = ProjectBuilder.new(generator)
+
+    if definition
+      builder.instance_eval(definition,opts[:filename])
+    elsif block_given?
+      builder.instance_eval(&block)
+    else
+      raise 'You have to supply either definition string or a block with blueprint commands.'
+    end
   end
 
-  private
-  
   class ProjectBuilder
     def initialize(generator)
       @generator = generator
@@ -28,33 +36,48 @@ module Barbecue::Dsl
     def model(name,&block)
       m = ModelBuilder.new(name)
       m.instance_eval(&block) if block_given?
-      m.blueprint(@generator)
+      m.invoke(@generator)
     end
   end
 
+  private
+
   class ModelBuilder
 
+    class Attribute < Struct.new(:name,:type,:options)
+      def for_model
+        if options[:translated]
+          I18n.available_locales.map {|locale| "#{name}_#{locale}:#{type}" }
+        else
+          [ "#{name}:#{type}" ]
+        end
+      end
+
+      def for_controller
+        for_model
+      end
+
+      def for_gui
+        []
+      end
+    end
+    
     def initialize(name)
       @name = name
       @attributes = []
     end
 
-    def translated(attr)
-      I18n.available_locales.each do |locale|
-        self.string("#{attr}_#{locale}")
+    [ 'text','string','datetime','integer'].each do |type|
+      define_method type do |name,options = {}|
+        @attributes << Attribute.new(name,type,options)
       end
     end
 
-    [ 'string','datetime','integer'].each do |type|
-      define_method type do |name|
-        @attributes << "#{name}:#{type}"
-      end
-    end
-
-    def blueprint(generator)
+    def invoke(generator)
       attributes = @attributes.join(' ')
-      generator.generate 'model',"#{@name} #{attributes}"
+      generator.invoke 'model', [ @name.to_s, @attributes.map(&:for_model) ].flatten
+      generator.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", @attributes.map(&:for_controller) ].flatten      
     end
-
+    
   end
 end
