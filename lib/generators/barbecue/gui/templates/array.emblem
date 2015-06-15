@@ -11,18 +11,23 @@
       <%- translated_attribute_names.each do |attr_name| -%>
       th <%= attr_name.humanize %>
       <%- end -%>
+      <%- simple_attributes.each do |attr| -%>
+      th <%= attr.name.humanize %>
+      <%- end -%>
+      th
     tbody
       each itemController='<%= singular %>'
         tr
-          <%- translated_attribute_names.each_with_index do |attr_name,i| -%>
-          <%- if i == 0-%>
-          td
-            = link-to '<%= singular %>' this
-              = <%= attr_name.camelize(:lower) %>
-          <%- else -%>
+          <%- translated_attribute_names.each do |attr_name| -%>
           td = <%= attr_name.camelize(:lower) %>
           <%- end -%>
+          <%- simple_attributes.each do |attr| -%>
+          td = <%= attr.name.camelize(:lower) %>
           <%- end -%>
+          td
+            = link-to '<%= singular %>' this
+              ' Edit
+
 
 .col-md-6
   = outlet

@@ -4,8 +4,8 @@ require 'pry'
 
 module Barbecue::Dsl
 
-  def self.blueprint(generator, definition = nil, opts = {}, &block)
-    builder = ProjectBuilder.new(generator)
+  def self.blueprint(definition = nil, opts = {}, &block)
+    builder = BlueprintBuilder.new
 
     if definition
       builder.instance_eval(definition,opts[:filename])
@@ -14,11 +14,15 @@ module Barbecue::Dsl
     else
       raise 'You have to supply either definition string or a block with blueprint commands.'
     end
+
+    builder
   end
 
-  class ProjectBuilder
-    def initialize(generator)
-      @generator = generator
+  class BlueprintBuilder
+    attr_reader :models
+    
+    def initialize
+      @models = []
     end
 
     def uses(feature)
@@ -38,13 +42,16 @@ module Barbecue::Dsl
     def model(name,&block)
       m = ModelBuilder.new(name)
       m.instance_eval(&block) if block_given?
-      m.invoke(@generator)
+      @models << m
+      m
     end
   end
 
   private
 
   class ModelBuilder
+
+    attr_reader :name
 
     class Attribute < Struct.new(:name,:type,:options)
 
@@ -61,7 +68,6 @@ module Barbecue::Dsl
           [ "#{name}:#{typename}" ]
         end
       end
-      
     end
     
     def initialize(name)
@@ -75,7 +81,7 @@ module Barbecue::Dsl
       end
     end
 
-    def invoke(generator)
+    def generate(generator)
       attributes = @attributes.join(' ')
       opts = { behavior: generator.behavior }
       opts.merge!(generator.options)
