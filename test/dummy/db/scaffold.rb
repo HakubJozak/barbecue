@@ -1,7 +1,8 @@
-Barbecue::Dsl.scaffold do
+Barbecue::Dsl.blueprint do
   # adds migrations and Image,Video models
   # uses :media_items
   # uses :media_placements
+  # uses :menu_item
 
   model :project do
     string :title, translated: true
@@ -12,6 +13,7 @@ Barbecue::Dsl.scaffold do
 
     images :screenshots
     image :portrait
+
 
     position scope: :company
     slug :title

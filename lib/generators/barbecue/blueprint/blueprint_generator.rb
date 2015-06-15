@@ -3,7 +3,7 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   argument :file, type: :string
 
   def create_models
-    Barbecue::Dsl.blueprint
-    generate 'model', 'project','title_cs:string','title_en:string'
+    # Barbecue::Dsl.blueprint
+    invoke 'model', [ 'project','title_cs:string title_en:string']
   end
 end
