@@ -1,8 +1,5 @@
 Description:
-    Explain the generator
+    Call model/controller/gui generators using other barbecue blueprint DSL.     
 
 Example:
-    rails generate blueprint Thing
-
-    This will create:
-        what/will/it/create
+    rails generate barbecue:blueprint ./db/blueprint.rb

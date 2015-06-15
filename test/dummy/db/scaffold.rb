@@ -1,17 +1,25 @@
 Barbecue::Dsl.scaffold do
   # adds migrations and Image,Video models
-  uses :media_items
-  uses :media_placements
+  # uses :media_items
+  # uses :media_placements
 
   model :project do
-    translated :title
-    translated :meta_title
-    translated :perex
-    translated :content
+    string :title, translated: true
+    string :meta_title, translated: true
+    string :perex
+    string :content
     string :slug
-    has_images :screenshots
 
-    acts_as_list
+    images :screenshots
+    image :portrait
+
+    position scope: :company
+    slug :title
+    # generates friendly_id :slug_candidates, use: slugged
+    #
+    # def slug_candidates
+    #   [ :title_en, :title_cs ]?
+    # end
   end
 
   # model :person do

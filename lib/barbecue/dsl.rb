@@ -1,28 +1,25 @@
 require 'rails/generators/rails/app/app_generator'
 
 module Barbecue::Dsl
+
+  def self.blueprint(generator,&block)
+    ProjectBuilder.new(generator).instance_eval(&block) if block_given?
+  end
+
   private
-
-  class Commander < Rails::Generators::Base
-  end
-
-  def self.scaffold(&block)
-    commander = Commander.new
-    ProjectBuilder.new(commander).instance_eval(&block) if block_given?
-  end
-
+  
   class ProjectBuilder
-    def initialize(commander)
-      @commander = commander
+    def initialize(generator)
+      @generator = generator
     end
-    
+
     def uses(feature)
-      case feature 
+      case feature
       when :media_placements
         # TODO
       when :media_items
         # TODO
-        # @commander.generate 'barbecue:media_items_migration'
+        # @generator.generate 'barbecue:media_items_migration'
       else
         raise "Unknown feature '#{feature}'"
       end
@@ -31,7 +28,7 @@ module Barbecue::Dsl
     def model(name,&block)
       m = ModelBuilder.new(name)
       m.instance_eval(&block) if block_given?
-      m.generate!(@commander)
+      m.blueprint(@generator)
     end
   end
 
@@ -44,7 +41,7 @@ module Barbecue::Dsl
 
     def translated(attr)
       I18n.available_locales.each do |locale|
-        self.string("#{attr}_#{locale}")        
+        self.string("#{attr}_#{locale}")
       end
     end
 
@@ -53,14 +50,11 @@ module Barbecue::Dsl
         @attributes << "#{name}:#{type}"
       end
     end
-    
-    def generate!(commander)
+
+    def blueprint(generator)
       attributes = @attributes.join(' ')
-      commander.generate 'model',"#{@name} #{attributes}"
+      generator.generate 'model',"#{@name} #{attributes}"
     end
 
   end
 end
-
-
-
