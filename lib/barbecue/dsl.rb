@@ -77,9 +77,12 @@ module Barbecue::Dsl
 
     def invoke(generator)
       attributes = @attributes.join(' ')
-      generator.invoke 'model', [ @name.to_s, @attributes.map(&:for_backend) ].flatten
-      generator.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", @attributes.map(&:for_backend) ].flatten      
-      generator.invoke 'barbecue:gui', [ @name.to_s, @attributes.map(&:for_backend) ].flatten      
+      opts = { behavior: generator.behavior }
+      opts.merge!(generator.options)
+      
+      Rails::Generators.invoke 'model', [ @name.to_s, @attributes.map(&:for_backend) ].flatten, opts
+      Rails::Generators.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", @attributes.map(&:for_backend) ].flatten, opts
+      Rails::Generators.invoke 'barbecue:gui', [ @name.to_s, @attributes.map(&:for_backend) ].flatten, opts      
     end
     
   end
