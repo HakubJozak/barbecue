@@ -52,10 +52,6 @@ module Barbecue::Dsl
         to_args(type)
       end
 
-      def for_ember
-        to_args(ember_type)
-      end
-
       private
       
       def to_args(typename)
@@ -63,15 +59,6 @@ module Barbecue::Dsl
           I18n.available_locales.map {|locale| "#{name}_#{locale}:#{typename}" }
         else
           [ "#{name}:#{typename}" ]
-        end
-      end
-
-      def ember_type
-        case type
-        when 'datetime' then 'isodate'
-        when 'integer','float' then 'numeric'
-        when 'text' then 'string'
-        else type
         end
       end
       
@@ -92,7 +79,7 @@ module Barbecue::Dsl
       attributes = @attributes.join(' ')
       generator.invoke 'model', [ @name.to_s, @attributes.map(&:for_backend) ].flatten
       generator.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", @attributes.map(&:for_backend) ].flatten      
-      generator.invoke 'barbecue:gui', [ @name.to_s, @attributes.map(&:for_ember) ].flatten      
+      generator.invoke 'barbecue:gui', [ @name.to_s, @attributes.map(&:for_backend) ].flatten      
     end
     
   end
