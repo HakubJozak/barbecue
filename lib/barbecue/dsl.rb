@@ -76,7 +76,7 @@ module Barbecue::Dsl
     end
 
     def human_name
-      @name.to_s.pluralize.humanize.capitalize      
+      @name.to_s.humanize.capitalize      
     end
 
 

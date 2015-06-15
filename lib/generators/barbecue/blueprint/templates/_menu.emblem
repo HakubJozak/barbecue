@@ -1,4 +1,17 @@
 <%- @blueprint.models.each do |model| -%>
 link-li 
-  link-to '<%= model.human_name %>' '<%= model.name.to_s.pluralize %>'
+  link-to '<%= model.human_name.pluralize %>' '<%= model.name.to_s.pluralize %>'
 <%- end -%>
+
+li
+  form.navbar-form          
+    .btn-group
+      button.btn.btn-success.dropdown-toggle data-toggle="dropdown"
+        ' {{fa 'plus'}} Create
+        span.caret
+      ul.dropdown-menu
+        <%- @blueprint.models.each do |model| -%>
+        link-li
+          = link-to 'new_<%= model.name %>'
+            ' New <%= model.human_name %>
+        <%- end -%>

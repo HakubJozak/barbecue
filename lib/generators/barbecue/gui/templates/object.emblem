@@ -1,18 +1,18 @@
 h3
-  | <%= class_name %> &nbsp;
-  = name
+  ' <%= class_name %> #{name}
 
 form submit="save" class="form"
   <%- unique_translated_attributes.each do |attr| -%>
   view 'form-group' attr="<%= without_locale(attr) %>"
     label.control-label <%= without_locale(attr).humanize %>
     <%= input_field(attr) %>
-  <%- end -%>
 
+  <%- end -%>
   <%- simple_attributes.each do |attr| -%>
   view 'form-group' attr="<%= attr.name %>"
     label.control-label <%= attr.name.humanize %>
     <%= input_field(attr) %>
+
   <%- end -%>
 
   .button-group
