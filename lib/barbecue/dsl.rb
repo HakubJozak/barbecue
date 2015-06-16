@@ -103,19 +103,20 @@ module Barbecue::Dsl
 
     def build!(generator)
       @generator = generator
-      attributes = @attributes.join(' ')
+      attributes = @attributes.map(&:for_backend)
       opts = { behavior: generator.behavior }
       opts.merge!(generator.options)
-      
+      force_flag = opts['force'] ? '--force' : nil
+
       generator.with_padding do
         say! "Model"
-        Rails::Generators.invoke 'model', [ @name.to_s, @attributes.map(&:for_backend) ].flatten, opts
+        Rails::Generators.invoke 'model', [ @name.to_s, attributes, force_flag ].flatten, opts
 
         say! "Admin Backend"
-        Rails::Generators.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", @attributes.map(&:for_backend) ].flatten, opts
+        Rails::Generators.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", attributes, force_flag ].flatten, opts
 
         say! "Admin Frontend"
-        Rails::Generators.invoke 'barbecue:gui', [ @name.to_s, @attributes.map(&:for_backend) ].flatten, opts      	
+        Rails::Generators.invoke 'barbecue:gui', [ @name.to_s, attributes, force_flag ].flatten, opts      	
       end
     end
  
