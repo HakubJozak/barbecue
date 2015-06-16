@@ -11,14 +11,17 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   
   def create_models
     @blueprint = Barbecue::Dsl.blueprint(File.read(filename),filename: filename)
-    @blueprint.models.each do |model|
-      model.generate(self)
-    end
-    
+    @blueprint.build!(self)
+  end
+
+  def create_menu
     template "_menu.emblem", templates_path("partials/_menu.emblem")
   end
+  
+  private
 
   def class_path
     ''
   end
+  
 end

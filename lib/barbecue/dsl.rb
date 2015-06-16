@@ -45,6 +45,12 @@ module Barbecue::Dsl
       @models << m
       m
     end
+
+    def build!(generator)
+      @models.each do |model|
+        model.build!(generator)
+      end
+    end
   end
 
   private
@@ -79,22 +85,42 @@ module Barbecue::Dsl
       @name.to_s.humanize.capitalize      
     end
 
-
     [ 'text','string','datetime','integer'].each do |type|
       define_method type do |name,options = {}|
         @attributes << Attribute.new(name,type,options)
       end
     end
 
-    def generate(generator)
+    def build!(generator)
+      @generator = generator
       attributes = @attributes.join(' ')
       opts = { behavior: generator.behavior }
       opts.merge!(generator.options)
       
-      Rails::Generators.invoke 'model', [ @name.to_s, @attributes.map(&:for_backend) ].flatten, opts
-      Rails::Generators.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", @attributes.map(&:for_backend) ].flatten, opts
-      Rails::Generators.invoke 'barbecue:gui', [ @name.to_s, @attributes.map(&:for_backend) ].flatten, opts      
+      generator.with_padding do
+        say! "Model"
+        Rails::Generators.invoke 'model', [ @name.to_s, @attributes.map(&:for_backend) ].flatten, opts
+
+        say! "Admin Backend"
+        Rails::Generators.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", @attributes.map(&:for_backend) ].flatten, opts
+
+        say! "Admin Frontend"
+        Rails::Generators.invoke 'barbecue:gui', [ @name.to_s, @attributes.map(&:for_backend) ].flatten, opts      	
+      end
     end
-    
+ 
+    private
+
+    def say!(msg)
+      @generator.say "#{@name.to_s.capitalize} - #{msg}", output_color
+    end
+
+    def output_color
+      if @generator.behavior == :invoke
+        :green
+      else # == :revoke
+        :red
+      end
+    end
   end
 end
