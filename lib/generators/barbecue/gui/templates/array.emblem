@@ -21,7 +21,7 @@
           td = <%= singular %>.<%= attr.name.camelize(:lower) %>
           <%- end -%>
           td
-            = link-to '<%= singular %>' this
+            = link-to '<%= singular %>' <%= singular %>
               ' Edit
 
 
