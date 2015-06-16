@@ -21,7 +21,7 @@ Barbecue.CrudMixin = Ember.Mixin.create
       record ||= @_guessRecord()
       title = @_guessTitle(record)
       return unless confirm("Do you really want to delete #{title}?")
-      
+
       if record.get('isNew')
         record.deleteRecord()
       else
@@ -40,14 +40,14 @@ Barbecue.CrudMixin = Ember.Mixin.create
     @get('title') || record.get('title')
 
   afterRemove: (record) ->
-    @transitionTo 'application'
+    @goToPluralRoute record    
     @flashInfo 'Deleted.'
 
   afterRollback: (record) ->
-    @transitionTo 'application'
+    @goToPluralRoute record
 
   afterSave: (record) ->
-    @transitionTo 'application'
+    @goToPluralRoute record    
     @flashInfo('Saved.')
 
   goToPluralRoute: (record = @currentModel) ->

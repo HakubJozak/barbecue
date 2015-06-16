@@ -12,6 +12,6 @@ li
       ul.dropdown-menu
         <%- @blueprint.models.each do |model| -%>
         link-li
-          = link-to 'new_<%= model.name %>'
+          = link-to '<%= model.name.to_s.pluralize %>.new'
             ' New <%= model.human_name %>
         <%- end -%>
