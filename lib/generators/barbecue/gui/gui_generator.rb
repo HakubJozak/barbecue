@@ -20,10 +20,21 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
     template 'new_route.js.coffee', routes_path("#{file_name.pluralize}_new_route.js.coffee")
     template 'object_controller.js.coffee', controllers_path("#{file_name}_controller.js.coffee")
     template "model.js.coffee", models_path("#{file_name}.js.coffee")
-
-#    inject_into_file ember_path
   end
 
+  def add_routes
+    routing  = <<-ROUTING
+
+  @resource '#{plural}', ->
+    @resource '#{singular}', {path: ':#{singular}_id'}
+    @route 'new'
+ROUTING
+
+    inject_into_file File.join(ember_path,'router.js.coffee'),routing,before: /\z/
+  end
+
+  protected
+  
   def plural
     name.pluralize
   end
