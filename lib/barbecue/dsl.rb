@@ -60,7 +60,17 @@ module Barbecue::Dsl
     attr_reader :name
 
     class Attribute < Struct.new(:name,:type,:options)
+      EMBER_RESERVED = [ 'content' ]
 
+      def initialize(*args)
+        super
+        
+        if EMBER_RESERVED.include?(name.to_s)
+          raise "Ember is using '#{name}' internally. Don't use it as an attribute name!"
+        end
+      end
+
+      
       def for_backend
         to_args(type)
       end
