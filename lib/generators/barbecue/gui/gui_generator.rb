@@ -34,7 +34,7 @@ ROUTING
   end
 
   protected
-  
+
   def plural
     name.pluralize
   end
@@ -58,5 +58,5 @@ ROUTING
   def simple_attributes
     attributes.reject &self.method(:translated_attribute?)
   end
-  
+
 end

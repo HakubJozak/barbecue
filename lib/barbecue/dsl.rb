@@ -20,7 +20,7 @@ module Barbecue::Dsl
 
   class BlueprintBuilder
     attr_reader :models
-    
+
     def initialize
       @models = []
     end
@@ -32,7 +32,7 @@ module Barbecue::Dsl
       when :media_items
         # TODO
         # @generator.invoke 'barbecue:media_items_migration'
-      when :menu_items        
+      when :menu_items
         # TODO
       else
         raise "Unknown feature '#{feature}'"
@@ -64,19 +64,19 @@ module Barbecue::Dsl
 
       def initialize(*args)
         super
-        
+
         if EMBER_RESERVED.include?(name.to_s)
           raise "Ember is using '#{name}' internally. Don't use it as an attribute name!"
         end
       end
 
-      
+
       def for_backend
         to_args(type)
       end
 
       private
-      
+
       def to_args(typename)
         if options[:translated]
           I18n.available_locales.map {|locale| "#{name}_#{locale}:#{typename}" }
@@ -85,14 +85,14 @@ module Barbecue::Dsl
         end
       end
     end
-    
+
     def initialize(name)
       @name = name
       @attributes = []
     end
 
     def human_name
-      @name.to_s.humanize.capitalize      
+      @name.to_s.humanize.capitalize
     end
 
     [ 'text','string','datetime','integer'].each do |type|
@@ -116,10 +116,10 @@ module Barbecue::Dsl
         Rails::Generators.invoke 'barbecue:controller', [ "admin/#{@name.to_s}", attributes, force_flag ].flatten, opts
 
         say! "Admin Frontend"
-        Rails::Generators.invoke 'barbecue:gui', [ @name.to_s, attributes, force_flag ].flatten, opts      	
+        Rails::Generators.invoke 'barbecue:gui', [ @name.to_s, attributes, force_flag ].flatten, opts
       end
     end
- 
+
     private
 
     def say!(msg)

@@ -26,21 +26,22 @@ module Barbecue::TemplateHelpers
   def textarea(attr)
     value = without_locale(attr).camelize(:lower)
     %{= textarea value=#{value} class='form-control'}
-  end  
-  
+  end
+
   def input_field(attr)
     case attr.type
     when :string then string_field(attr)
     when :text then textarea(attr)
-    when :integer then string_field(attr,'number')      
+    when :integer then string_field(attr,'number')
     when :datetime then date_field(attr)
     end
   end
 
   def ember_type(attr)
     case attr.type
-    when :datetime then 'isodate'
-    when :integer,'float' then 'numeric'
+    when :datetime,:date then 'isodate'
+    when :integer,:decimal then 'number'
+    when :boolean, then 'boolean'
     when :text then 'string'
     else :string
     end
