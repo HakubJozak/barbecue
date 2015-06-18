@@ -19,8 +19,8 @@ module Barbecue::TemplateHelpers
   end
 
   def boolean_field(attr)
-    binding = without_locale(attr).camelize(:lower)
-    %{= view 'date' dateBinding='#{binding}'}
+    value = without_locale(attr).camelize(:lower)
+    %{= input checked=#{value} type='checkbox'}
   end
 
   def string_field(attr,html_type = 'text',attributes = {})
@@ -38,6 +38,7 @@ module Barbecue::TemplateHelpers
     case attr.type
     when :string then string_field(attr)
     when :text then textarea(attr)
+    when :boolean then boolean_field(attr)
     when :integer then string_field(attr,'number')
     when :decimal then string_field(attr,'number',step: '"0.01"')
     when :email then string_field(attr,'email')      
@@ -46,6 +47,7 @@ module Barbecue::TemplateHelpers
     end
   end
 
+  # rename ember_model_type
   def ember_type(attr)
     case attr.type
     when :datetime,:date then 'isodate'
