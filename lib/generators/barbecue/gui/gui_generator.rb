@@ -10,7 +10,8 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
 
   source_root File.expand_path('../templates', __FILE__)
 
-  argument :attributes, type: :array, default: [], banner: "field:type field:type ..."
+  argument :attributes, type: :array, default: [],
+            banner: "field:type field:type ..."
 
   def create_template_files
     template "object.emblem", templates_path("#{file_name}.emblem")
