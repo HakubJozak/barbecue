@@ -22,14 +22,22 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
         opts = { behavior: behavior }
       
         say! "Model"
-        Rails::Generators.invoke 'model', [ model.name.to_s, model.attributes.to_cli, force_flag ].flatten, opts
+        Rails::Generators.invoke 'model', [ model.name.to_s,
+                                            model.attributes.to_cli,
+                                            migration_flag,
+                                            force_flag ].flatten, opts
 
         say! "Admin Backend"
         Rails::Generators.invoke 'barbecue:controller',
-                                 [ "admin/#{model.name}", model.attributes.to_cli, force_flag,migration_flag ].flatten, opts
+                                 [ "admin/#{model.name}",
+                                   model.attributes.to_cli,
+                                   force_flag
+                                 ].flatten, opts
 
         say! "Admin Frontend"
-        Rails::Generators.invoke 'barbecue:gui', [ model.name.to_s, model.attributes.to_cli, force_flag ].flatten, opts
+        Rails::Generators.invoke 'barbecue:gui', [ model.name.to_s,
+                                                   model.attributes.to_cli,
+                                                   force_flag ].flatten, opts
       end
     end
   end
