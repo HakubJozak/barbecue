@@ -18,28 +18,25 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   
   def create_files
     @blueprint.models.each do |model|
-      with_padding do
         opts = { behavior: behavior }
       
         say! "Model"
-        Rails::Generators.invoke 'model', [ model.name.to_s,
-                                            model.attributes.to_cli,
-                                            migration_flag,
-                                            force_flag ].flatten, opts
+        call! 'model', [ model.name.to_s,
+                             model.attributes.to_cli,
+                             force_flag, migration_flag ].flatten, opts
 
         say! "Admin Backend"
-        Rails::Generators.invoke 'barbecue:controller',
+        call! 'barbecue:controller',
                                  [ "admin/#{model.name}",
                                    model.attributes.to_cli,
                                    force_flag
                                  ].flatten, opts
 
         say! "Admin Frontend"
-        Rails::Generators.invoke 'barbecue:gui', [ model.name.to_s,
-                                                   model.attributes.to_cli,
-                                                   force_flag ].flatten, opts
+        call! 'barbecue:gui', [ model.name.to_s,
+                                model.attributes.to_cli,
+                                force_flag ].flatten, opts
       end
-    end
   end
 
   def create_menu
@@ -48,6 +45,12 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
 
   private
 
+  def call!(*args)
+    with_padding do
+      Rails::Generators.invoke(*args)
+    end
+  end
+  
   def say!(msg)
     say "#{@name.to_s.capitalize} - #{msg}", output_color
   end
@@ -65,7 +68,7 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   end
 
   def migration_flag
-    '--no-migration' unless options['migration']
+    '--no-migration' if options['migration'] == false
   end
 
   def class_path

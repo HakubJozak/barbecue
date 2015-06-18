@@ -1,7 +1,7 @@
 module Barbecue::Blueprint
   class Attributes < Array
     def to_cli
-      map(&:to_cli).join(' ')
+      map(&:to_cli)
     end
   end
 
@@ -10,7 +10,7 @@ module Barbecue::Blueprint
 
     def initialize(*args)
       super
-
+      
       if EMBER_RESERVED.include?(name.to_s)
         raise "Ember is using '#{name}' internally. Don't use it as an attribute name!"
       end

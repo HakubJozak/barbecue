@@ -11,7 +11,8 @@ module Barbecue::Blueprint
       @name.to_s.humanize.capitalize
     end
 
-    [ 'text','string','datetime','integer','decimal','boolean'].each do |type|
+    [ 'text','string','integer','decimal','boolean',
+      'float','date','time','datetime'].each do |type|
       define_method type do |name,options = {}|
         @attributes << Attribute.new(name,type,options)
       end
