@@ -1,12 +1,9 @@
-require "barbecue/engine"
-require "barbecue/controller_commons"
-require "barbecue/blueprint"
-require 'barbecue/blueprint/attribute'
-require 'barbecue/blueprint/model'
-require 'barbecue/blueprint/builder'
-require 'barbecue/controller/commons'
-require 'barbecue/controller/pagination'
-require 'barbecue/controller/media'
+require_relative "barbecue/engine"
+require_relative "barbecue/blueprint"
+require_relative 'barbecue/blueprint/attribute'
+require_relative 'barbecue/blueprint/model'
+require_relative 'barbecue/blueprint/builder'
+require_relative "barbecue/controller"
 
 
 module Barbecue

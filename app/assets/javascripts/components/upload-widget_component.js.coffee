@@ -1,7 +1,9 @@
 Barbecue.UploadWidgetComponent = Ember.Component.extend
   layoutName: 'components/barbecue/upload_widget'
   classNames: ['upload-widget']
-  attr: 'image'
+  type: 'image'  
+  attr: null
+  model: null
 
   progress: null
   isUploading: Ember.computed.bool('progress')
@@ -13,8 +15,22 @@ Barbecue.UploadWidgetComponent = Ember.Component.extend
       @set 'progress', Math.round(p * 0.9)
       false
 
-    saveSourceUrl: (url) ->
+    saveSourceUrl: (url,name,mimeType) ->
       console.log "Upload finished: #{url}"
       @set 'progress',null
-      # send it to route
-      true
+
+      # HACK - move the whole logic somewhere else?  
+      store = @get('targetObject.store')
+      owner = @get('owner')
+      attribute = @get('attr')
+      type = @get('type')
+
+      image = owner.get(attribute) || store.createRecord(type)
+      image.set('sourceUrl',url)
+      owner.set(attribute,image)
+      owner.save()
+      false
+
+    
+
+

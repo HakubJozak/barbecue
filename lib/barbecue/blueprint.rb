@@ -1,8 +1,6 @@
 require 'rails/generators/rails/app/app_generator'
 require 'pry'
 
-
-
 module Barbecue::Blueprint
 
   def self.create(definition = nil, opts = {}, &block)

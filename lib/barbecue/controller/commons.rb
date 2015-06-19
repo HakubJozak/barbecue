@@ -1,5 +1,5 @@
 module Barbecue::Controller::Commons
-  
+
   private
 
   # Usage:
