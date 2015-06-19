@@ -22,13 +22,20 @@ Barbecue.UploadWidgetComponent = Ember.Component.extend
       # HACK - move the whole logic somewhere else?  
       store = @get('targetObject.store')
       owner = @get('owner')
-      attribute = @get('attr')
       type = @get('type')
 
-      image = owner.get(attribute) || store.createRecord(type)
-      image.set('sourceUrl',url)
-      owner.set(attribute,image)
-      owner.save()
+      if attribute = @get('attr')
+        image = owner.get(attribute) || store.createRecord(type)
+        image.set('sourceUrl',url)
+        owner.set(attribute,image)
+        owner.save()
+      else if attribute = @get('array')
+        image = owner.get(attribute).createRecord()
+        image.set('sourceUrl',url)
+        owner.save()        
+      else
+        console.error "Set 'array' or 'attr' property"
+        throw new "Set 'array' or 'attr' property"
       false
 
     
