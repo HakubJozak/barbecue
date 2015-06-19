@@ -1,14 +1,18 @@
 class Barbecue::BaseSerializer < ActiveModel::Serializer
 
+  # deprecated
   cattr_reader :readonly
+  # deprecated
   cattr_reader :writable
 
+  # deprecated
   def self.writable_attributes(*names)
     self.attributes(*names)
     @@writable ||= []
     @@writable.concat(names)
   end
 
+  # deprecated
   def self.readonly_attributes(*names)
     self.attributes(*names)
     @@readonly ||= []
