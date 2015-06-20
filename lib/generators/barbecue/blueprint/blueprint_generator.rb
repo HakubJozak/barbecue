@@ -8,18 +8,17 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
 
   class_option :migration, type: :boolean
 
-  
   include Ember::Generators::GeneratorHelpers
   include Barbecue::GeneratorHelpers
 
   def read_blueprint
     @blueprint = Barbecue::Blueprint.create(File.read(filename),filename: filename)
   end
-  
+
   def create_files
     @blueprint.models.each do |model|
         opts = { behavior: behavior }
-      
+
         say! "Model"
         call! 'model', [ model.name.to_s,
                              model.attributes.to_cli,
@@ -49,26 +48,6 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
     with_padding do
       Rails::Generators.invoke(*args)
     end
-  end
-  
-  def say!(msg)
-    say "#{@name.to_s.capitalize} - #{msg}", output_color
-  end
-
-  def output_color
-    if behavior == :invoke
-      :green
-    else # == :revoke
-      :red
-    end
-  end
-
-  def force_flag
-    '--force' if options['force']
-  end
-
-  def migration_flag
-    '--no-migration' if options['migration'] == false
   end
 
   def class_path
