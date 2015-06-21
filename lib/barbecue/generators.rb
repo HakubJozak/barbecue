@@ -1,0 +1,3 @@
+module Barbecue::Generators
+
+end

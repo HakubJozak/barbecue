@@ -1,4 +1,6 @@
 require_relative "barbecue/engine"
+require_relative "barbecue/generators"
+require_relative "barbecue/generators/generated_attribute"
 require_relative "barbecue/blueprint"
 require_relative 'barbecue/blueprint/attribute'
 require_relative 'barbecue/blueprint/model'
