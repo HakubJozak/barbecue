@@ -1,6 +1,13 @@
 module Barbecue::GeneratorHelpers
   private
 
+  # Overriding method from Rails internals!
+  def parse_attributes! #:nodoc:
+    self.attributes = (attributes || []).map do |attr|
+      Barbecue::Generators::GeneratedAttribute.parse(attr)
+    end
+  end  
+
   def say!(msg)
     say "#{@name.to_s.capitalize} - #{msg}", output_color
   end
@@ -14,7 +21,7 @@ module Barbecue::GeneratorHelpers
   end
 
   def force_flag
-    '--force' if options['force']
+    '--force' if options['force'] == true
   end
 
   def migration_flag

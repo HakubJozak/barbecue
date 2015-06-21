@@ -20,6 +20,10 @@ module Barbecue::Generators
       end
     end
 
+    def scalar?
+      (type != :image)
+    end
+
     def to_cli
       if type == :image
         "#{name}_id:integer"

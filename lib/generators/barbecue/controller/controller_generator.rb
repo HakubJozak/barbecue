@@ -2,17 +2,23 @@ require 'rails/generators'
 require 'rails/generators/rails/scaffold_controller/scaffold_controller_generator'
 require 'rails/generators/rails/resource_route/resource_route_generator'
 
+require_relative '../generator_helpers'
+
 
 class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGenerator
+  include Barbecue::GeneratorHelpers
+
   source_root File.expand_path('../templates', __FILE__)
 
   class_option :parent, type: :string, default: Barbecue.parent_controller, desc: 'Parent controller class'
 
   remove_hook_for :test_framework
+  remove_hook_for :serializer
 
 
   def create_controller_files
     template "controller.rb", File.join('app/controllers', controller_class_path, "#{controller_file_name}_controller.rb")
+    template "serializer.rb", File.join('app/serializers', controller_class_path, "#{file_name}_serializer.rb")
     template "test.rb", File.join('test/controllers', controller_class_path, "#{controller_file_name}_controller_test.rb")
     add_resource_route
   end

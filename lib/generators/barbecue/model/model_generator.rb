@@ -2,9 +2,6 @@ require_relative '../generator_helpers'
 # require 'rails/generators/rails/model/model_generator'
 
 
-
-
-
 #class Barbecue::ModelGenerator < Rails::Generators::ModelGenerator
 # ActiveRecord::Generators::ModelGenerator
 class Barbecue::ModelGenerator < Rails::Generators::NamedBase 
