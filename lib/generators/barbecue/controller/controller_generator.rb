@@ -23,11 +23,19 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
     add_resource_route
   end
 
-  protected
+  private
 
   def permitted_attributes
-    attributes.map { |a| ":#{a.name}" }.join(',')
+    [ attributes.select(&:scalar?).map { |a| ":#{a.name}" },
+      attributes.select(&:image?).map { |a| "#{a.name}: image_attributes"}
+    ].flatten.join(",")
   end
+
+  def nested_attributes_fix
+    attributes.select(&:image?).map do |a|
+      "#{singular_name}[:#{a.name}_attributes] ||= #{singular_name}.delete(:#{a.name})"
+    end.join("\n")
+  end  
 
   def parent_controller_class_name
     options[:parent]
@@ -40,6 +48,8 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
   def serializer_class_name
     "#{class_name}Serializer"
   end
+
+
 
   # Copy pasta from
   # 'rails/generators/rails/resource_route/resource_route_generator'
@@ -77,8 +87,6 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
     # route prepends two spaces onto the front of the string that is passed, this corrects that
     route route_string[2..-1]
   end
-
-  private
 
   def route_string
     @route_string ||= ""

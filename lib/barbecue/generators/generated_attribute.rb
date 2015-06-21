@@ -21,8 +21,12 @@ module Barbecue::Generators
     end
 
     def scalar?
-      (type != :image)
+      !image?
     end
+
+    def image?
+      (type == :image)
+    end    
 
     def to_cli
       if type == :image
