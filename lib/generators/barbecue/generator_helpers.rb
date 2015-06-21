@@ -41,6 +41,10 @@ module Barbecue::GeneratorHelpers
     File.join(ember_path, 'models', class_path, filename)
   end
 
+  def serializers_path(filename)
+    File.join(ember_path, 'serializers', filename)
+  end  
+
   def controllers_path(filename)
     File.join(ember_path, 'controllers', class_path, filename)
   end
