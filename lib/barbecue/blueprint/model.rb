@@ -1,4 +1,4 @@
-module Barbecue::Blueprint 
+module Barbecue::Blueprint
   class Model
     attr_reader :name, :attributes
 
@@ -12,7 +12,7 @@ module Barbecue::Blueprint
     end
 
     [ 'text','string','integer','decimal','boolean',
-      'float','date','time','datetime'].each do |type|
+      'float','date','time','datetime','image'].each do |type|
       define_method type do |name,options = {}|
         @attributes << Attribute.new(name,type,options)
       end
