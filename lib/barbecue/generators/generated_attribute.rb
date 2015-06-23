@@ -6,11 +6,6 @@ module Barbecue::Generators
 
     def initialize(*args)
       @extended_options = {}
-
-      if translated? and required?
-        raise ArgumentError.new("Attribute '#{name}' cannot be translated and require at once (not implemented)")
-      end
-
       super
     end
 
@@ -18,6 +13,12 @@ module Barbecue::Generators
       parsed = super
       parsed.column_definition = column_definition
       parsed.parse_extended_options!
+
+      if parsed.translated? and parsed.required?
+        raise ArgumentError.
+               new("Attribute '#{parsed.name}' cannot be both translated and required (not implemented).")
+      end
+      
       parsed
     end
 
@@ -48,13 +49,24 @@ CODE
       (type == :image)
     end
 
+    def ember_data_type
+      case type
+      when :datetime,:date then "DS.attr 'isodate'"
+      when :integer,:decimal then "DS.attr 'number'"
+      when :boolean then "DS.attr 'boolean'"
+      when :text then "DS.attr 'string'"
+      when :image then "DS.belongsTo 'image'"
+      else "DS.attr 'string'"
+      end
+    end
+
     def to_raw
       if translated?
         I18n.available_locales.map do |locale|
 	  "#{name}_#{locale}".to_sym
         end
       else
-        name.to_sym
+        [ name.to_sym ]
       end
     end
 

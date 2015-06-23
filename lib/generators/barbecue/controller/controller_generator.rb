@@ -35,7 +35,7 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
   
   def permitted_attributes
     [ scalar_attributes_as_symbols,
-      attributes.select(&:image?).map { |a| "#{a.name}: image_attributes"}
+      attributes.select(&:image?).map { |a| "#{a.name}_attributes: image_attributes"}
     ].flatten.join(",")
   end
 

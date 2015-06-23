@@ -1,6 +1,8 @@
 <%= application_name.camelize %>.<%= class_name.camelize %> = DS.Model.extend
   # photo: DS.belongsTo 'mediaItem'
 
-  <%- attributes.each do |attr| -%>
-  <%= attr.name.camelize(:lower) %>: DS.attr '<%= ember_type(attr) %>'
+  <%- attributes.flatten.each do |attr| -%>
+  <%- attr.to_raw.each do |name| -%>          
+  <%= name.to_s.camelize(:lower) %>: <%= attr.ember_data_type %>
   <%- end -%>
+  <%- end -%>          

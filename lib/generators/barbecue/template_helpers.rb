@@ -47,15 +47,4 @@ module Barbecue::TemplateHelpers
     end
   end
 
-  # rename ember_model_type
-  def ember_type(attr)
-    case attr.type
-    when :datetime,:date then 'isodate'
-    when :integer,:decimal then 'number'
-    when :boolean then 'boolean'
-    when :text then 'string'
-    else :string
-    end
-  end
-
 end
