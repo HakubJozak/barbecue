@@ -4,7 +4,7 @@ require 'generators/ember/generator_helpers'
 
 class Barbecue::BlueprintGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
-  argument :filename, type: :string
+  argument :filename, type: :string, default: 'db/blueprint.rb'
 
   class_option :migration, type: :boolean
   class_option :menu, type: :boolean, default: true
@@ -13,6 +13,7 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   include Barbecue::GeneratorHelpers
 
   def read_blueprint
+    say "Using #{filename}"
     @blueprint = Barbecue::Blueprint.create(File.read(filename),filename: filename)
   end
 
