@@ -1,6 +1,15 @@
 module Barbecue::GeneratorHelpers
   private
 
+  def call!(*args)
+    action = (behavior == :invoke)? 'generate' : 'destroy'
+    say! [ "rails #{action}",args[0..-2]].flatten.join(' ') + "\n"
+
+    with_padding do
+      Rails::Generators.invoke(*args)
+    end
+  end
+
   # Overriding method from Rails internals!
   def parse_attributes! #:nodoc:
     self.attributes = (attributes || []).map do |attr|

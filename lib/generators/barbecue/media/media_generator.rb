@@ -1,20 +1,26 @@
-require 'rails/generators/rails/migration/migration_generator'
+require_relative '../generator_helpers'
 
-class Barbecue::MediaGenerator < Rails::Generators::MigrationGenerator
+
+class Barbecue::MediaGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
+  MIGRATION_NAME = 'barbecue_media_items'
 
+  include Barbecue::GeneratorHelpers
+  
   def create_model_files
-    # if behavior == :invoke
-    #   rake 'barbecue:install:migrations'
-    # else
-    #   Rails::Generators.invoke 'migration',['media_items'], behavior: behavior
-    # end
-    
     template "image.rb", 'app/models/image.rb'
-    generate 'migration','create_media'
-    
+    template "serializer.rb", 'app/serializers/admin/image_serializer.rb'
+    template "image.js.coffee", 'app/assets/javascripts/admin/models/image.js.coffee'    
+  end
+
+  def create_migration
+    return unless options[:migration]
+
+    call! 'migration', [ MIGRATION_NAME, force_flag ], { behavior: behavior }
+
     if behavior == :invoke
-      insert_into_file migration, migration, after: /change\z/
+      file_name = Dir["db/migrate/*_#{MIGRATION_NAME}.rb"].first
+      insert_into_file file_name, migration, after: /change\n/
     end
   end
 
@@ -32,8 +38,9 @@ class Barbecue::MediaGenerator < Rails::Generators::MigrationGenerator
       t.string   :photo_uid
       t.string   :photo_name
       t.string   :cover_url, limit: 2048
-      t.text     :thumbnail_sizes, default: "--- {}\n"
+      t.text     :thumbnail_sizes, default: "--- {}\\n"
       t.timestamps null: false
+    end
 MIGRATION
   end
 end

@@ -11,6 +11,7 @@ module Barbecue
       end
 
       assert @zoo.uses?(:images), 'images not detected'
+      assert_equal @zoo.models.first.name, :animal
     end
   end
 end
