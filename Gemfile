@@ -18,7 +18,6 @@ group :test, :development do
   gem 'pg'
   gem 'dotenv-rails'
   gem 'pry'
-  gem "generator_spec"
 end
 
 gem 'traco'

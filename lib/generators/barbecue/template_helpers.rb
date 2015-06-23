@@ -41,7 +41,7 @@ module Barbecue::TemplateHelpers
     when :boolean then boolean_field(attr)
     when :integer then string_field(attr,'number')
     when :decimal then string_field(attr,'number',step: '"0.01"')
-    when :email then string_field(attr,'email')      
+    when :email then string_field(attr,'email')
     when :datetime then date_field(attr)
     else string_field(attr)
     end

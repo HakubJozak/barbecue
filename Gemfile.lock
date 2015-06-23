@@ -181,9 +181,6 @@ GEM
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     formatador (0.2.5)
-    generator_spec (0.9.3)
-      activesupport (>= 3.0.0)
-      railties (>= 3.0.0)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     handlebars-source (2.0.0)
@@ -264,7 +261,6 @@ DEPENDENCIES
   dotenv-rails
   dragonfly
   dragonfly-s3_data_store
-  generator_spec
   pg
   pry
   traco

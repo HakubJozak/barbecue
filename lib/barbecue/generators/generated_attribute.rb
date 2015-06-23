@@ -4,24 +4,31 @@ module Barbecue::Generators
   class GeneratedAttribute < Rails::Generators::GeneratedAttribute
     attr_accessor :column_definition
 
+    def initialize(*args)
+      @extended_options = {}
+
+      if translated? and required?
+        raise ArgumentError.new("Attribute '#{name}' cannot be translated and require at once (not implemented)")
+      end
+
+      super
+    end
+
     def self.parse(column_definition)
       parsed = super
       parsed.column_definition = column_definition
-      # parse extended format like: title:string,translated
       parsed.parse_extended_options!
       parsed
     end
 
-    def append_code_for_model!(generator)
+    def code_for_model
       if type == :image
-        file = "app/models/#{generator.name}.rb"
-
-        code = <<CODE
+        <<CODE
   belongs_to :#{name}, class: Image
   accepts_nested_attributes_for :#{name}
 CODE
-
-        generator.inject_into_class file, generator.name.capitalize, code
+      elsif required?
+        "validates :#{name}, presence:true\n"
       end
     end
 
@@ -44,9 +51,9 @@ CODE
     end
 
     def to_rails_cli
-      if type == :image
+      if image?
         "#{name}_id:integer"
-      elsif @extended_options[:translated]
+      elsif translated?
         I18n.available_locales.map do |locale|
 	  "#{name}_#{locale}:string"
         end
