@@ -9,7 +9,6 @@ module Barbecue::Generators
       parsed.column_definition = column_definition
       # parse extended format like: title:string,translated
       parsed.parse_extended_options!
-      binding.pry
       parsed
     end
 
@@ -34,6 +33,16 @@ CODE
       (type == :image)
     end
 
+    def to_raw
+      if translated?
+        I18n.available_locales.map do |locale|
+	  "#{name}_#{locale}".to_sym
+        end
+      else
+        name.to_sym
+      end
+    end
+
     def to_rails_cli
       if type == :image
         "#{name}_id:integer"
@@ -46,17 +55,17 @@ CODE
       end
     end
 
-    def required
+    def required?
       @extended_options[:required]
     end
 
-    def translated
+    def translated?
       @extended_options[:translated]
     end    
     
     def parse_extended_options!
       bits = type.to_s.split(',')
-      self.type = bits.shift
+      self.type = bits.shift.to_sym
       @extended_options = {}
 
       bits.each do |bit|
