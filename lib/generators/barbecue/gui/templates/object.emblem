@@ -3,7 +3,7 @@ h3
 
 form submit="save" class="form"
   <%- unique_translated_attributes.each do |attr| -%>
-  view 'form-group' attr="<%= without_locale(attr) %>"
+  view 'form-group' attr="<%= without_locale(attr) %>" translated=true
     label.control-label <%= without_locale(attr).humanize %>
     <%= input_field(attr) %>
 

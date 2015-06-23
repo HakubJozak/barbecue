@@ -15,8 +15,8 @@ module Barbecue::Generators
         file = "app/models/#{generator.name}.rb"
 
         code = <<CODE
-  belongs_to :#{generator.name}, class: Image
-  accepts_nested_attributes_for :#{generator.name}\n"
+  belongs_to :#{name}, class: Image
+  accepts_nested_attributes_for :#{name}
 CODE
 
         generator.inject_into_class file, generator.name.capitalize, code
