@@ -7,6 +7,7 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   argument :filename, type: :string
 
   class_option :migration, type: :boolean
+  class_option :menu, type: :boolean, default: true
 
   include Ember::Generators::GeneratorHelpers
   include Barbecue::GeneratorHelpers
@@ -19,19 +20,16 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
     @blueprint.models.each do |model|
         opts = { behavior: behavior }
 
-        say! "Model"
-        call! 'model', [ model.name.to_s,
-                             model.attributes.to_cli,
-                             force_flag, migration_flag ].flatten, opts
+        call! 'barbecue:model', [ model.name.to_s,
+                                  model.attributes.to_cli,
+                                  force_flag, migration_flag ].flatten, opts
 
-        say! "Admin Backend"
         call! 'barbecue:controller',
                                  [ "admin/#{model.name}",
                                    model.attributes.to_cli,
                                    force_flag
                                  ].flatten, opts
 
-        say! "Admin Frontend"
         call! 'barbecue:gui', [ model.name.to_s,
                                 model.attributes.to_cli,
                                 force_flag ].flatten, opts
@@ -39,12 +37,18 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   end
 
   def create_menu
-    template "_menu.emblem", templates_path("partials/_menu.emblem")
+    if options[:menu]
+      template "_menu.emblem", templates_path("partials/_menu.emblem")
+    else
+      say 'Skipping menu'
+    end
   end
 
   private
 
   def call!(*args)
+    say! [ 'rails generate',args[0..-2]].flatten.join(' ')
+
     with_padding do
       Rails::Generators.invoke(*args)
     end

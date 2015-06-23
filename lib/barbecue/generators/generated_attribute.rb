@@ -10,13 +10,16 @@ module Barbecue::Generators
       parsed
     end
 
-    def finish(generator)
+    def append_code_for_model!(generator)
       if type == :image
-        file = "app/models/#{generator.name}.rb" 
-        generator.inject_into_class file, generator.name.capitalize do
-          [ "  belongs_to :#{generator.name}, class: Image",
-            "  accepts_nested_attributes_for :#{generator.name}\n" ].join("\n")
-        end
+        file = "app/models/#{generator.name}.rb"
+
+        code = <<CODE
+  belongs_to :#{generator.name}, class: Image
+  accepts_nested_attributes_for :#{generator.name}\n"
+CODE
+
+        generator.inject_into_class file, generator.name.capitalize, code
       end
     end
 
@@ -26,7 +29,7 @@ module Barbecue::Generators
 
     def image?
       (type == :image)
-    end    
+    end
 
     def to_cli
       if type == :image

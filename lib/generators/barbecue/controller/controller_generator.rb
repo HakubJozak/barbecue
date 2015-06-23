@@ -25,6 +25,10 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
 
   private
 
+  def has_images?
+    attributes.select(&:image?).present?
+  end
+
   def permitted_attributes
     [ attributes.select(&:scalar?).map { |a| ":#{a.name}" },
       attributes.select(&:image?).map { |a| "#{a.name}: image_attributes"}
@@ -35,7 +39,7 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
     attributes.select(&:image?).map do |a|
       "#{singular_name}[:#{a.name}_attributes] ||= #{singular_name}.delete(:#{a.name})"
     end.join("\n")
-  end  
+  end
 
   def parent_controller_class_name
     options[:parent]

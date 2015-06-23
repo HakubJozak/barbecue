@@ -8,6 +8,10 @@ require_dependency "<%= namespaced_file_path %>/application_controller"
 class <%= controller_class_name %>Controller < <%= parent_controller_class_name %>
   respond_to :json
 
+  <% if has_images? -%>
+  include Barbecue::Controller::Media
+  <% end -%>
+
   before_action :find_<%= singular_name %>, except: [:index,:create]
 
   # GET <%= route_url %>
