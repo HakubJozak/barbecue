@@ -14,7 +14,8 @@ class Barbecue::MediaGenerator < Rails::Generators::Base
   end
 
   def create_migration
-    return unless options[:migration]
+    # FIXME
+    # return unless options[:migration]
 
     call! 'migration', [ MIGRATION_NAME, force_flag ]
 
