@@ -1,8 +1,8 @@
 <%= application_name.camelize %>.<%= class_name.camelize %>Serializer = DS.ActiveModelSerializer.extend DS.EmbeddedRecordsMixin,
-  images: [ <%= image_attributes.map {|a| "'#{a.name}'" }.join(',') %> ]
+  images: [ <%= image_attributes.map {|a| "'#{a.ember_name}'" }.join(',') %> ]
   attrs:
     <%- image_attributes.each do |attr| -%>
-    <%= attr.name %>:  { serialize: 'records', deserialize: 'records' }
+    <%= attr.ember_name %>:  { serialize: 'records', deserialize: 'records' }
     <%- end -%>
 
   typeForRoot: (key) ->
