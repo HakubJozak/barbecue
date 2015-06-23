@@ -7,6 +7,13 @@ module Barbecue::Blueprint
       @attributes = Attributes.new
     end
 
+    def uses?(feature)
+      case feature
+      when :image, :images
+        @attributes.find { |a| a.type.to_s =~ /images?/ }
+      end
+    end
+
     def human_name
       @name.to_s.humanize.capitalize
     end

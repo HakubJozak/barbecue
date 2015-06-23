@@ -47,7 +47,7 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   private
 
   def call!(*args)
-    say! [ 'rails generate',args[0..-2]].flatten.join(' ')
+    say! [ 'rails generate',args[0..-2]].flatten.join(' ') + "\n"
 
     with_padding do
       Rails::Generators.invoke(*args)

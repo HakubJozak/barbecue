@@ -1,2 +1,2 @@
-class Image < Barbecue::Image  
+class Image < Barbecue::Image
 end
