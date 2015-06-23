@@ -29,13 +29,4 @@ class Barbecue::ModelGenerator < Rails::Generators::NamedBase
     # template 'model.rb', File.join('app/models', class_path, "#{file_name}.rb")
   end
 
-  private
-
-  def parse_attributes! #:nodoc:
-    self.attributes = (attributes || []).map do |attr|
-      Barbecue::Generators::GeneratedAttribute.parse(attr)
-    end
-  end
-
-
 end

@@ -10,18 +10,24 @@ module Barbecue::Blueprint
 
     def initialize(*args)
       super
-      
+
       if EMBER_RESERVED.include?(name.to_s)
         raise "Ember is using '#{name}' internally. Don't use it as an attribute name!"
       end
     end
 
+    # Example:
+    #
+    # position:integer
+    #
+    # or
+    #
+    # title:string,translated,required
     def to_cli
-      if options[:translated]
-        I18n.available_locales.map {|locale| "#{name}_#{locale}:#{type}" }
-      else
-        [ "#{name}:#{type}" ]
-      end
+      cli = [ "#{name}:#{type}" ]
+      cli << 'translated' if options[:translated]
+      cli << 'required' if options[:required]      
+      [ cli.join(',') ]
     end
   end
 end

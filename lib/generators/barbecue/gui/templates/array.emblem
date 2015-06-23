@@ -4,20 +4,14 @@
 
   table.table
     thead
-      <%- translated_attribute_names.each do |attr_name| -%>
-      th <%= attr_name.humanize %>
-      <%- end -%>
-      <%- simple_attributes.each do |attr| -%>
+      <%- attributes.each do |attr| -%>
       th <%= attr.name.humanize %>
       <%- end -%>
       th
     tbody
       each <%= singular %> in this itemController='<%= singular %>'
         tr
-          <%- translated_attribute_names.each do |attr_name| -%>
-          td = <%= singular %>.<%= attr_name.camelize(:lower) %>
-          <%- end -%>
-          <%- simple_attributes.each do |attr| -%>
+          <%- attributes.each do |attr| -%>
           td = <%= singular %>.<%= attr.name.camelize(:lower) %>
           <%- end -%>
           td

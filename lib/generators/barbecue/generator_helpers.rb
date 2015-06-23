@@ -6,7 +6,7 @@ module Barbecue::GeneratorHelpers
     self.attributes = (attributes || []).map do |attr|
       Barbecue::Generators::GeneratedAttribute.parse(attr)
     end
-  end  
+  end
 
   def say!(msg)
     say "#{@name.to_s.capitalize} - #{msg}", output_color
@@ -43,7 +43,7 @@ module Barbecue::GeneratorHelpers
 
   def serializers_path(filename)
     File.join(ember_path, 'serializers', filename)
-  end  
+  end
 
   def controllers_path(filename)
     File.join(ember_path, 'controllers', class_path, filename)
