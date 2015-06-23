@@ -16,7 +16,7 @@ class Barbecue::MediaGenerator < Rails::Generators::Base
   def create_migration
     return unless options[:migration]
 
-    call! 'migration', [ MIGRATION_NAME, force_flag ], { behavior: behavior }
+    call! 'migration', [ MIGRATION_NAME, force_flag ]
 
     if behavior == :invoke
       file_name = Dir["db/migrate/*_#{MIGRATION_NAME}.rb"].first

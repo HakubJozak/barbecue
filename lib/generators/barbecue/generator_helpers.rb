@@ -1,24 +1,25 @@
 module Barbecue::GeneratorHelpers
   private
 
-  def call!(*args)
+  def call!(name,args)
     action = (behavior == :invoke)? 'generate' : 'destroy'
-    say! [ "rails #{action}",args[0..-2]].flatten.join(' ') + "\n"
+    say! [ "rails #{action}", name, args ].flatten.join(' ') + "\n"
 
     with_padding do
-      Rails::Generators.invoke(*args)
-    end
-  end
-
-  # Overriding method from Rails internals!
-  def parse_attributes! #:nodoc:
-    self.attributes = (attributes || []).map do |attr|
-      Barbecue::Generators::GeneratedAttribute.parse(attr)
+      opts = { behavior: behavior }
+      Rails::Generators.invoke(name,args,opts)
     end
   end
 
   def say!(msg)
     say "#{@name.to_s.capitalize} - #{msg}", output_color
+  end
+  
+  # Overriding method from Rails internals!
+  def parse_attributes! #:nodoc:
+    self.attributes = (attributes || []).map do |attr|
+      Barbecue::Generators::GeneratedAttribute.parse(attr)
+    end
   end
 
   def output_color

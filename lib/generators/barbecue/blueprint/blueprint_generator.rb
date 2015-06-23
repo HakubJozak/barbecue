@@ -16,23 +16,29 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
     @blueprint = Barbecue::Blueprint.create(File.read(filename),filename: filename)
   end
 
+  def create_media
+    if @blueprint.uses? :images
+      call! 'barbecue:media', [ force_flag, migration_flag ]
+    else
+      say! 'Media not needed, skipping migrations'
+    end
+  end
+
   def create_files
     @blueprint.models.each do |model|
-        opts = { behavior: behavior }
-
         call! 'barbecue:model', [ model.name.to_s,
                                   model.attributes.to_cli,
-                                  force_flag, migration_flag ].flatten, opts
+                                  force_flag, migration_flag ].flatten
 
         call! 'barbecue:controller',
                                  [ "admin/#{model.name}",
                                    model.attributes.to_cli,
                                    force_flag
-                                 ].flatten, opts
+                                 ].flatten
 
         call! 'barbecue:gui', [ model.name.to_s,
                                 model.attributes.to_cli,
-                                force_flag ].flatten, opts
+                                force_flag ].flatten
       end
   end
 
