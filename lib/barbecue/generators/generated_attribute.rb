@@ -28,7 +28,7 @@ module Barbecue::Generators
   accepts_nested_attributes_for :#{name}
 CODE
       elsif required?
-        "validates :#{name}, presence:true\n"
+        "  validates :#{name}, presence:true\n"
       end
     end
 
