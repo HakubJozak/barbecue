@@ -2,17 +2,18 @@ h3
   ' <%= class_name %> #{name}
 
 form submit="save" class="form"
-  <%- unique_translated_attributes.each do |attr| -%>
-  view 'form-group' attr="<%= without_locale(attr) %>" translated=true
-    label.control-label <%= without_locale(attr).humanize %>
+  <%- attributes.select(&:scalar?).each do |attr| -%>
+  view 'form-group' attr="<%= attr.name %>" translated=<%= attr.translated?.to_s %>
+    label.control-label <%= attr.human_name %>
     <%= input_field(attr) %>
 
   <%- end -%>
-  <%- simple_attributes.each do |attr| -%>
-  view 'form-group' attr="<%= attr.name %>"
+  <%- image_attributes.each do |attr| -%>
+  .form-group
     label.control-label <%= attr.name.humanize %>
-    <%= input_field(attr) %>
-
+    bbq-upload-widget owner=model attr="<%= attr.ember_name %>"
+    br
+    img src=<%= attr.ember_name %>.thumbnailUrl height='40em'
   <%- end -%>
 
   .button-group

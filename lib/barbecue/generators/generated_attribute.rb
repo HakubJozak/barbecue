@@ -32,6 +32,14 @@ CODE
       end
     end
 
+    def ember_name
+      name.camelize(:lower)
+    end
+
+    def human_name
+      name.humanize
+    end
+
     def scalar?
       !image?
     end
@@ -58,16 +66,17 @@ CODE
 	  "#{name}_#{locale}:string"
         end
       else
-        @column_definition
+        # @column_definition
+        "#{name}:#{type}"
       end
     end
 
     def required?
-      @extended_options[:required]
+      !!@extended_options[:required]
     end
 
     def translated?
-      @extended_options[:translated]
+      !!@extended_options[:translated]
     end    
     
     def parse_extended_options!

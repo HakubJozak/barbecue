@@ -49,7 +49,7 @@ ROUTING
   end
 
   def image_attributes
-    attributes.select &:image?
+    attributes.select(&:image?)
   end
 
   # def translated_attributes

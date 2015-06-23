@@ -4,7 +4,7 @@
     <%- image_attributes.each do |attr| -%>
     <%= attr.name %>:  { serialize: 'records', deserialize: 'records' }
     <%- end -%>
-            
+
   typeForRoot: (key) ->
     if @get('images').indexOf(key) > 0
       'image'
