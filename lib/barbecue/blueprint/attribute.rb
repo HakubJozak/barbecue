@@ -26,7 +26,7 @@ module Barbecue::Blueprint
     def to_cli
       cli = [ "#{name}:#{type}" ]
       cli << 'translated' if options[:translated]
-      cli << 'required' if options[:required]      
+      cli << 'required' if options[:required]
       [ cli.join(',') ]
     end
   end

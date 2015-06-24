@@ -18,19 +18,12 @@ module Barbecue::Generators
         raise ArgumentError.
                new("Attribute '#{parsed.name}' cannot be both translated and required (not implemented).")
       end
-      
+
       parsed
     end
 
     def code_for_model
-      if type == :image
-        <<CODE
-  belongs_to :#{name}, class: Image
-  accepts_nested_attributes_for :#{name}
-CODE
-      elsif required?
-        "  validates :#{name}, presence:true\n"
-      end
+      [ associations_code, required_code ].flatten.join("\n")
     end
 
     def ember_name
@@ -42,7 +35,15 @@ CODE
     end
 
     def scalar?
-      !image?
+      [ :datetime, :date, :integer, :decimal ,:boolean, :string, :text].include?(type)
+    end
+
+    def has_many?
+      [ :images, :documents, :videos ].include?(type)
+    end
+
+    def belongs_to?
+      [ :image, :document, :video ].include?(type)
     end
 
     def image?
@@ -71,8 +72,10 @@ CODE
     end
 
     def to_rails_cli
-      if image?
+      if belongs_to?
         "#{name}_id:integer"
+      elsif has_many?
+        nil
       elsif translated?
         I18n.available_locales.map do |locale|
 	  "#{name}_#{locale}:string"
@@ -89,8 +92,9 @@ CODE
 
     def translated?
       !!@extended_options[:translated]
-    end    
-    
+    end
+
+
     def parse_extended_options!
       bits = type.to_s.split(',')
       self.type = bits.shift.to_sym
@@ -100,7 +104,33 @@ CODE
         @extended_options[bit.to_sym] = true
       end
     end
+
+    private
+
+    def required_code
+      if required?
+        "  validates :#{name}, presence:true\n"
+      end     
+    end
     
+
+    def associations_code
+      case type
+      when :images
+        <<CODE
+  has_many :#{name}, class: Image
+  accepts_nested_attributes_for :#{name}
+CODE
+      when :image
+        <<CODE
+  belongs_to :#{name}, class: Image
+  accepts_nested_attributes_for :#{name}
+CODE
+      end
+    end
+
+    
+
     # def parse_type_and_options(str)
     #   case str
     #   when /(image)\{(.+)\}/

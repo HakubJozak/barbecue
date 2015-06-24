@@ -6,7 +6,7 @@ module Barbecue::Generators
       attr = GeneratedAttribute.parse 'title:integer'
       assert_equal :integer, attr.type
       assert_equal false, attr.required?
-      assert_equal false, attr.translated?    
+      assert_equal false, attr.translated?
     end
 
     test 'required' do
@@ -21,8 +21,19 @@ module Barbecue::Generators
       assert_equal false, attr.required?
       assert_equal :decimal, attr.type
       assert_equal [:lat_en,:lat_cs], attr.to_raw
-    end  
+    end
 
+    test 'image' do
+      attr = Barbecue::Generators::GeneratedAttribute.parse 'photo:image'
+      assert_equal attr.type, :image
+      assert_equal 'photo_id:integer' , attr.to_rails_cli
+    end
+
+    test 'images' do
+      attr = Barbecue::Generators::GeneratedAttribute.parse 'screenshots:images'    
+      assert_equal :images, attr.type
+      assert_equal nil, attr.to_rails_cli      
+    end
 
   end
 end
