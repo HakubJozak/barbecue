@@ -30,9 +30,9 @@ module Barbecue::Generators
     end
 
     test 'images' do
-      attr = Barbecue::Generators::GeneratedAttribute.parse 'screenshots:images'    
+      attr = Barbecue::Generators::GeneratedAttribute.parse 'screenshots:images'
       assert_equal :images, attr.type
-      assert_equal nil, attr.to_rails_cli      
+      assert_equal nil, attr.to_rails_cli
     end
 
   end
