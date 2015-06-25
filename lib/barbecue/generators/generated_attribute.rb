@@ -9,21 +9,40 @@ module Barbecue::Generators
       super
     end
 
-    def self.parse(column_definition)
-      parsed = super
-      parsed.column_definition = column_definition
-      parsed.parse_extended_options!
+    class << self
+      def parse(column_definition)
+        parsed = super
+        parsed.column_definition = column_definition
+        parsed.parse_extended_options!
 
-      if parsed.translated? and parsed.required?
-        raise ArgumentError.
-               new("Attribute '#{parsed.name}' cannot be both translated and required (not implemented).")
+        if parsed.translated? and parsed.required?
+          raise ArgumentError.
+                 new("Attribute '#{parsed.name}' cannot be both translated and required (not implemented).")
+        end
+
+        case parsed.type
+        when :image
+          replicate_with(ImageAttribute,parsed)
+        when :images
+          replicate_with(ImagesAttribute,parsed)
+        else
+          replicate_with(PlainAttribute,parsed)
+        end
       end
 
-      parsed
+      private
+
+      def replicate_with(clazz,original)
+        clazz.new(original.name, original.type, original.has_index?, original.attr_options)
+      end
     end
 
-    def code_for_model
-      [ associations_code, required_code ].flatten.join("\n")
+    def scalar?
+      false
+    end
+    
+    def code_for(filetype)
+      required_code if file == :model
     end
 
     def ember_name
@@ -34,20 +53,8 @@ module Barbecue::Generators
       name.humanize
     end
 
-    def scalar?
-      [ :datetime, :date, :integer, :decimal ,:boolean, :string, :text].include?(type)
-    end
-
-    def has_many?
-      [ :images, :documents, :videos ].include?(type)
-    end
-
-    def belongs_to?
-      [ :image, :document, :video ].include?(type)
-    end
-
     def image?
-      (type == :image)
+      false
     end
 
     def ember_data_type
@@ -110,25 +117,8 @@ module Barbecue::Generators
     def required_code
       if required?
         "  validates :#{name}, presence:true\n"
-      end     
-    end
-    
-
-    def associations_code
-      case type
-      when :images
-        <<CODE
-  has_many :#{name}, class: Image
-  accepts_nested_attributes_for :#{name}
-CODE
-      when :image
-        <<CODE
-  belongs_to :#{name}, class: Image
-  accepts_nested_attributes_for :#{name}
-CODE
       end
     end
-
     
 
     # def parse_type_and_options(str)

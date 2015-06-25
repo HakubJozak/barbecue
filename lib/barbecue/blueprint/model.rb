@@ -18,17 +18,9 @@ module Barbecue::Blueprint
       @name.to_s.humanize.capitalize
     end
 
-    def image(name = 'image')
-      @attributes << Attribute.new(name,type,options)      
-    end
-
-    def images(name = 'images')
-      @attributes << Attribute.new(name,type,options)      
-    end    
-
     [ 'text','string','integer','decimal','boolean',
-      'float','date','time','datetime'].each do |type|
-      define_method type do |name,options = {}|
+      'float','date','time','datetime','image','images'].each do |type|
+      define_method type do |name = type,options = {}|
         @attributes << Attribute.new(name,type,options)
       end
     end
