@@ -1,13 +1,18 @@
+require_relative 'generated_attribute'
+
+
 module Barbecue::Generators
-  class PlainAttribute
+  class ImageAttribute < GeneratedAttribute
     def image?
       true
     end
 
-    def code_for(filetype)
-      if file == :model
-        [ associations_code, required_code ].flatten.join("\n")
-      end
+    def to_rails_cli
+      "#{name}_id:integer"
+    end
+
+    def code_for_model
+      [ associations_code, required_code ].flatten.join("\n")
     end
 
     def associations_code
@@ -17,6 +22,6 @@ module Barbecue::Generators
 CODE
     end
 
-      
+
   end
 end
