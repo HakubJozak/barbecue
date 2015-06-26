@@ -40,9 +40,9 @@ module Barbecue::Generators
     def scalar?
       false
     end
-    
-    def code_for(filetype)
-      required_code if file == :model
+
+    def code_for_model
+      nil
     end
 
     def ember_name
@@ -78,21 +78,6 @@ module Barbecue::Generators
       end
     end
 
-    def to_rails_cli
-      if belongs_to?
-        "#{name}_id:integer"
-      elsif has_many?
-        nil
-      elsif translated?
-        I18n.available_locales.map do |locale|
-	  "#{name}_#{locale}:string"
-        end
-      else
-        # @column_definition
-        "#{name}:#{type}"
-      end
-    end
-
     def required?
       !!@extended_options[:required]
     end
@@ -119,7 +104,7 @@ module Barbecue::Generators
         "  validates :#{name}, presence:true\n"
       end
     end
-    
+
 
     # def parse_type_and_options(str)
     #   case str
