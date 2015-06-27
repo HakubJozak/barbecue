@@ -57,17 +57,6 @@ module Barbecue::Generators
       false
     end
 
-    def ember_data_type
-      case type
-      when :datetime,:date then "DS.attr 'isodate'"
-      when :integer,:decimal then "DS.attr 'number'"
-      when :boolean then "DS.attr 'boolean'"
-      when :text then "DS.attr 'string'"
-      when :image then "DS.belongsTo 'image'"
-      else "DS.attr 'string'"
-      end
-    end
-
     def to_raw
       if translated?
         I18n.available_locales.map do |locale|

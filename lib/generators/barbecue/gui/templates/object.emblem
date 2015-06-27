@@ -2,18 +2,8 @@ h3
   ' <%= class_name %> #{name}
 
 form submit="save" class="form"
-  <%- attributes.select(&:scalar?).each do |attr| -%>
-  view 'form-group' attr="<%= attr.name %>" translated=<%= attr.translated?.to_s %>
-    label.control-label <%= attr.human_name %>
-    <%= input_field(attr) %>
-
-  <%- end -%>
-  <%- image_attributes.each do |attr| -%>
-  .form-group
-    label.control-label <%= attr.name.humanize %>
-    bbq-upload-widget owner=model attr="<%= attr.ember_name %>"
-    br
-    img src=<%= attr.ember_name %>.thumbnailUrl height='40em'
+  <%- attributes.each do |attr| -%>
+<%= attr.ember_field %>
   <%- end -%>
 
   .button-group
