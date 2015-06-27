@@ -10,6 +10,10 @@ module Barbecue::Generators
       true
     end
 
+    def ember_list_label(model_variable)
+      "#{ model_variable }.#{ ember_name }"
+    end
+    
     def ember_field
       <<EMBLEM_FIELD
   view 'form-group' attr="#{name}" translated=#{translated?.to_s}

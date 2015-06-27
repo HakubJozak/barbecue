@@ -11,6 +11,10 @@ module Barbecue::Generators
       "DS.hasMany 'image'"
     end
 
+    def ember_list_label(model_variable)
+      "#{ model_variable }.#{ ember_name }.size"
+    end
+    
     def ember_field
 <<FIELD
   .form-group

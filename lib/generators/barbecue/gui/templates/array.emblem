@@ -12,12 +12,8 @@
       each <%= singular %> in this itemController='<%= singular %>'
         tr
           <%- attributes.each do |attr| -%>
-          <%- if attr.image? -%>
           td
-            img src=<%= singular %>.<%= attr.ember_name %>.thumbnailUrl height="50"
-          <%- else -%>
-          td = <%= singular %>.<%= attr.ember_name %>
-          <%- end -%>
+            <%= attr.ember_list_label(singular) -%>          
           <%- end -%>
           td
             = link-to '<%= singular %>' <%= singular %>
