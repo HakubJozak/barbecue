@@ -7,6 +7,21 @@ module Barbecue::Generators
       nil
     end
 
+    def ember_data_type
+      "DS.hasMany 'image'"
+    end
+
+    def ember_field
+<<FIELD
+  .form-group
+    label.control-label #{name.humanize}
+    bbq-upload-widget owner=model array="#{ember_name}"
+    br
+    each screen in screenshots
+      img src=#{ember_name}.thumbnailUrl height='40em'      
+FIELD
+    end    
+    
     def to_permitted
        "#{name}_attributes:  [ image_attributes ]"
     end

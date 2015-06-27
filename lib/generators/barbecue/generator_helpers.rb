@@ -14,7 +14,7 @@ module Barbecue::GeneratorHelpers
   def say!(msg)
     say "#{@name.to_s.capitalize} - #{msg}", output_color
   end
-  
+
   # Overriding method from Rails internals!
   def parse_attributes! #:nodoc:
     self.attributes = (attributes || []).map do |attr|

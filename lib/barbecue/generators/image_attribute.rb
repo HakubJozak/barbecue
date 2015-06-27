@@ -6,6 +6,20 @@ module Barbecue::Generators
     def image?
       true
     end
+
+    def ember_data_type
+      "DS.belongsTo 'image'"
+    end
+
+    def ember_field
+<<FIELD
+  .form-group
+    label.control-label #{name.humanize}
+    bbq-upload-widget owner=model attr="#{ember_name}"
+    br
+    img src=#{ember_name}.thumbnailUrl height='40em'      
+FIELD
+    end
     
     def to_permitted
       "#{name}_attributes:  image_attributes"
