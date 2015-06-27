@@ -13,7 +13,7 @@ module Barbecue::Generators
     def ember_list_label(model_variable)
       "#{ model_variable }.#{ ember_name }"
     end
-    
+
     def ember_field
       <<EMBLEM_FIELD
   view 'form-group' attr="#{name}" translated=#{translated?.to_s}
@@ -21,7 +21,7 @@ module Barbecue::Generators
     #{input_field(self)}
 EMBLEM_FIELD
     end
-    
+
     def ember_data_type
       case type
       when :datetime,:date then "DS.attr 'isodate'"
@@ -31,7 +31,11 @@ EMBLEM_FIELD
       else "DS.attr 'string'"
       end
     end
-    
+
+    def code_for_serializer
+      "attribute :#{name}"
+    end
+
     def to_permitted
       name.to_sym
     end
@@ -39,7 +43,7 @@ EMBLEM_FIELD
     def nested_attributes?
       false
     end
-    
+
     def code_for_model
       required_code
     end
