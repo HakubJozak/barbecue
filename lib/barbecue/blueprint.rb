@@ -1,5 +1,5 @@
 require 'rails/generators/rails/app/app_generator'
-#require 'pry' FIXME: neni dobry napad na produkci
+
 
 module Barbecue::Blueprint
 
