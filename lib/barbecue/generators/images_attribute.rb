@@ -3,6 +3,10 @@ require_relative 'generated_attribute'
 module Barbecue::Generators
   class ImagesAttribute < GeneratedAttribute
 
+    def code_for_serializer
+      "has_many :#{name}, serializer: Admin::ImageSerializer"
+    end
+
     def to_rails_cli
       nil
     end
