@@ -21,10 +21,7 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
     template 'new_route.js.coffee', routes_path("#{file_name.pluralize}_new_route.js.coffee")
     template 'object_controller.js.coffee', controllers_path("#{file_name}_controller.js.coffee")
     template "model.js.coffee", models_path("#{file_name}.js.coffee")
-
-    if image_attributes.present?
-      template "serializer.js.coffee", serializers_path("#{file_name}_serializer.js.coffee")
-    end
+    template "serializer.js.coffee", serializers_path("#{file_name}_serializer.js.coffee")
   end
 
   def add_routes

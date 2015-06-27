@@ -3,12 +3,12 @@ require_relative 'generated_attribute'
 
 module Barbecue::Generators
   class ImageAttribute < GeneratedAttribute
-    def image?
-      true
-    end
-
     def ember_data_type
       "DS.belongsTo 'image'"
+    end
+
+    def ember_embedded_record
+     "#{ ember_name }:  { serialize: 'records', deserialize: 'records' }"
     end
 
     def ember_list_label(model_variable)
