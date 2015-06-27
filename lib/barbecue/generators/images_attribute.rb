@@ -7,6 +7,10 @@ module Barbecue::Generators
       nil
     end
 
+    def ember_embedded_record
+      "#{ ember_name }:  { serialize: 'records', deserialize: 'records' }"
+    end
+
     def ember_data_type
       "DS.hasMany 'image'"
     end
@@ -14,7 +18,7 @@ module Barbecue::Generators
     def ember_list_label(model_variable)
       "#{ model_variable }.#{ ember_name }.size"
     end
-    
+
     def ember_field
 <<FIELD
   .form-group
@@ -22,14 +26,14 @@ module Barbecue::Generators
     bbq-upload-widget owner=model array="#{ember_name}"
     br
     each screen in screenshots
-      img src=#{ember_name}.thumbnailUrl height='40em'      
+      img src=#{ember_name}.thumbnailUrl height='40em'
 FIELD
-    end    
-    
+    end
+
     def to_permitted
        "#{name}_attributes:  [ image_attributes ]"
     end
-    
+
     def nested_attributes?
       true
     end

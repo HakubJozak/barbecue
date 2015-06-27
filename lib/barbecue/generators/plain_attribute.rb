@@ -6,8 +6,8 @@ module Barbecue::Generators
   class PlainAttribute < GeneratedAttribute
     include ::Barbecue::TemplateHelpers
 
-    def scalar?
-      true
+    def ember_embedded_record
+      nil
     end
 
     def ember_list_label(model_variable)
