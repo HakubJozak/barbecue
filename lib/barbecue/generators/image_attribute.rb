@@ -6,6 +6,14 @@ module Barbecue::Generators
     def image?
       true
     end
+    
+    def to_permitted
+      "#{name}_attributes:  image_attributes"
+    end
+    
+    def nested_attributes?
+      true
+    end
 
     def to_rails_cli
       "#{name}_id:integer"

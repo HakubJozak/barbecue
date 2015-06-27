@@ -20,6 +20,10 @@ group :test, :development do
   gem 'pry'
 end
 
+# group :test do
+#   gem "generator_spec"
+# end
+
 gem 'traco'
 gem 'dragonfly'
 gem 'dragonfly-s3_data_store'

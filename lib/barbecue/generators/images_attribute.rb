@@ -3,15 +3,25 @@ require_relative 'generated_attribute'
 module Barbecue::Generators
   class ImagesAttribute < GeneratedAttribute
 
-    def code_for(filetype)
-      if file == :model
-        [ associations_code, required_code ].flatten.join("\n")
-      end
+    def to_rails_cli
+      nil
+    end
+
+    def to_permitted
+       "#{name}_attributes:  [ image_attributes ]"
+    end
+    
+    def nested_attributes?
+      true
+    end
+
+    def code_for_model
+      [ associations_code, required_code ].flatten.join("\n")
     end
 
     def associations_code
         <<CODE
-  belongs_to :#{name}, class: Image
+  has_many :#{name}, class: Image
   accepts_nested_attributes_for :#{name}
 CODE
     end
