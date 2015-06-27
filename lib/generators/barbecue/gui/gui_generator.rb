@@ -45,10 +45,6 @@ ROUTING
     name
   end
 
-  def image_attributes
-    attributes.select(&:image?)
-  end
-
   # def translated_attributes
   #   attributes.select &self.method(:translated_attribute?)
   # end

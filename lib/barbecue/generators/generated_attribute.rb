@@ -37,24 +37,12 @@ module Barbecue::Generators
       end
     end
 
-    def scalar?
-      false
-    end
-
-    def code_for_model
-      nil
-    end
-
     def ember_name
       name.camelize(:lower)
     end
 
     def human_name
       name.humanize
-    end
-
-    def image?
-      false
     end
 
     def to_raw

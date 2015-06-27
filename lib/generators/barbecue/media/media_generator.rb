@@ -6,11 +6,11 @@ class Barbecue::MediaGenerator < Rails::Generators::Base
   MIGRATION_NAME = 'barbecue_media_items'
 
   include Barbecue::GeneratorHelpers
-  
+
   def create_model_files
     template "image.rb", 'app/models/image.rb'
     template "serializer.rb", 'app/serializers/admin/image_serializer.rb'
-    template "image.js.coffee", 'app/assets/javascripts/admin/models/image.js.coffee'    
+    template "image.js.coffee", 'app/assets/javascripts/admin/models/image.js.coffee'
   end
 
   def create_migration
@@ -36,6 +36,8 @@ class Barbecue::MediaGenerator < Rails::Generators::Base
       t.string   :copyright_en
       t.string   :source_url, limit: 2048
       t.string   :type, default: 'Image', null: false
+      t.integer  :owner_id
+      t.integer  :owner_type
       t.string   :photo_uid
       t.string   :photo_name
       t.string   :cover_url, limit: 2048

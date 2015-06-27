@@ -32,8 +32,12 @@ EMBLEM_FIELD
       end
     end
 
+    def ember_type_for_root
+      nil
+    end
+
     def code_for_serializer
-      "attribute :#{name}"
+      "attributes :#{name}"
     end
 
     def to_permitted
