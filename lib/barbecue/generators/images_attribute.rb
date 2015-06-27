@@ -11,6 +11,10 @@ module Barbecue::Generators
       nil
     end
 
+    def ember_type_for_root
+      "return 'image' if key == '#{ember_name}'"
+    end    
+
     def ember_embedded_record
       "#{ ember_name }:  { serialize: 'records', deserialize: 'records' }"
     end
@@ -29,8 +33,8 @@ module Barbecue::Generators
     label.control-label #{name.humanize}
     bbq-upload-widget owner=model array="#{ember_name}"
     br
-    each screen in screenshots
-      img src=#{ember_name}.thumbnailUrl height='40em'
+    each i in #{ember_name}
+      img src=i.thumbnailUrl height='40em'
 FIELD
     end
 
@@ -48,7 +52,7 @@ FIELD
 
     def associations_code
         <<CODE
-  has_many :#{name}, class: Image
+  has_many :#{name}, class: Image, as: :owner
   accepts_nested_attributes_for :#{name}
 CODE
     end

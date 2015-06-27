@@ -7,6 +7,10 @@ module Barbecue::Generators
       "has_one :#{name}, serializer: Admin::ImageSerializer"
     end
 
+    def ember_type_for_root
+      "return 'image' if key == '#{ember_name}'"
+    end    
+
     def ember_data_type
       "DS.belongsTo 'image'"
     end
