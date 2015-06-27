@@ -11,6 +11,10 @@ module Barbecue::Generators
       "DS.belongsTo 'image'"
     end
 
+    def ember_list_label(model_variable)
+      "img src=#{ model_variable }.#{ ember_name }.thumbnailUrl height='50'"
+    end
+    
     def ember_field
 <<FIELD
   .form-group
