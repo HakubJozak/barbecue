@@ -34,13 +34,23 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
   end
 
   def permitted_attributes
-    [ scalar_attributes_as_symbols,
-      attributes.select(&:image?).map { |a| "#{a.name}_attributes: image_attributes"}
-    ].flatten.join(",")
+    scalars = []
+    other = []
+    
+
+    attributes.map(&:to_permitted).each do |a|
+      if a.is_a?(Symbol)
+        scalars << a.inspect
+      else
+        other << a
+      end
+    end
+
+    [ scalars, other ].flatten.compact.join(',')
   end
 
   def nested_attributes_fix
-    attributes.select(&:image?).map do |a|
+    attributes.select(&:nested_attributes?).map do |a|
       "#{singular_name}[:#{a.name}_attributes] ||= #{singular_name}.delete(:#{a.name})"
     end.join("\n")
   end
