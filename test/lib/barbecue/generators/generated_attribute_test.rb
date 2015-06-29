@@ -3,10 +3,14 @@ require 'test_helper'
 module Barbecue::Generators
   class GeneratedAttributeTest < ActiveSupport::TestCase
     test 'integer' do
-      attr = GeneratedAttribute.parse 'title:integer'
+      attr = GeneratedAttribute.parse 'position:integer'
       assert_equal :integer, attr.type
       assert_equal false, attr.required?
       assert_equal false, attr.translated?
+    end
+
+    test 'slug' do
+      attr = Barbecue::Generators::GeneratedAttribute.parse 'title:string,slug'
     end
 
     test 'required' do
@@ -36,11 +40,6 @@ module Barbecue::Generators
       assert_equal nil, attr.to_rails_cli
     end
 
-    test 'slug' do
-      attr = Barbecue::Generators::GeneratedAttribute.parse 'screenshots:slug'
-      assert_equal :slug, attr.type
-      assert_equal nil, attr.to_rails_cli
-    end
 
   end
 end
