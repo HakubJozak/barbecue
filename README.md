@@ -4,9 +4,10 @@ Barbecue is a strongly opiniated set of Ember components and
 Rails generators useful to quickly scaffold an almost
 production ready administration interface for your models.
 
-## Usage
+## Basic Usage
 
-Sketch your models in `db/blueprint.rb` like this:
+Use [shle](https://github.com/sinfin/shle) to generate a fresh Rails
+application. Then sketch your models in `db/blueprint.rb` like this:
 
 ```ruby
   model :animal do
@@ -22,7 +23,15 @@ Sketch your models in `db/blueprint.rb` like this:
 
 And run the Blueprint generator:
 
-    rails generate barbecue:blueprint --force --rebuild-db
+    rails generate barbecue:blueprint --rebuild-db
+
+Run `foreman start` and behold the admin interface.
 
 
-This uses MIT-LICENSE.
+## TODO
+
+- merge with Shle under a `blueprint` project
+
+## License
+
+This project uses MIT-LICENSE.
