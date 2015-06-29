@@ -8,6 +8,7 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
 
   class_option :migration, type: :boolean
   class_option :menu, type: :boolean, default: true
+  class_option :rebuild_db, type: :boolean, default: false
 
   include Ember::Generators::GeneratorHelpers
   include Barbecue::GeneratorHelpers
@@ -49,6 +50,12 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
     else
       say 'Skipping menu'
     end
+  end
+
+  def rebuild_database
+    return unless (Rails.env.development? or Rails.env.test?)
+    return unless options[:rebuild_db]
+    rake 'db:drop db:create db:migrate db:seed'
   end
 
   private
