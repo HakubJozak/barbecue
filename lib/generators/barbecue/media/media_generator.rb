@@ -10,7 +10,9 @@ class Barbecue::MediaGenerator < Rails::Generators::Base
   def create_model_files
     template "image.rb", 'app/models/image.rb'
     template "serializer.rb", 'app/serializers/admin/image_serializer.rb'
-    template "image.js.coffee", 'app/assets/javascripts/admin/models/image.js.coffee'
+
+    ember_path = Rails.application.config.ember.ember_path || 'app/assets/javascripts'
+    template "image.js.coffee", "#{ember_path}/models/image.js.coffee"
   end
 
   def create_migration

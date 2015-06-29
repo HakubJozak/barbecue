@@ -45,20 +45,4 @@ ROUTING
     name
   end
 
-  # def translated_attributes
-  #   attributes.select &self.method(:translated_attribute?)
-  # end
-
-  # def unique_translated_attributes
-  #   translated_attributes.uniq { |attr| without_locale(attr) }
-  # end
-
-  # def translated_attribute_names
-  #   attributes.select(&method(:translated_attribute?)).map(&method(:without_locale)).uniq
-  # end
-
-  # def simple_attributes
-  #   attributes.reject &self.method(:translated_attribute?)
-  # end
-
 end
