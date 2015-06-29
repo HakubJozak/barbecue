@@ -6,16 +6,21 @@ production ready administration interface for your models.
 
 ## Usage
 
-Sketch your models in `db/blueprint.rb`:
+Sketch your models in `db/blueprint.rb` like this:
 
 ```ruby
   model :animal do
-    string :title, translated: true
+    string   :name, required: true
+    text     :cv, translated: true
+    integer  :position
+    boolean  :happy
+    decimal  :weight
+    datetime :arrived_at
     images :wildlife_photos
   end 
 ```
 
-Then run:
+And run the Blueprint generator:
 
     rails generate barbecue:blueprint --force --rebuild-db
 
