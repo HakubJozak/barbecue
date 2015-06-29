@@ -2,7 +2,7 @@ require 'rails/generators/generated_attribute'
 
 module Barbecue::Generators
   class GeneratedAttribute < Rails::Generators::GeneratedAttribute
-    attr_accessor :column_definition
+    attr_accessor :column_definition, :extended_options
 
     def initialize(*args)
       @extended_options = {}
@@ -21,6 +21,8 @@ module Barbecue::Generators
         end
 
         case parsed.type
+        when :slug
+          replicate_with(SlugAttribute,parsed)
         when :image
           replicate_with(ImageAttribute,parsed)
         when :images
@@ -33,7 +35,9 @@ module Barbecue::Generators
       private
 
       def replicate_with(clazz,original)
-        clazz.new(original.name, original.type, original.has_index?, original.attr_options)
+        copy = clazz.new(original.name, original.type, original.has_index?, original.attr_options)
+        copy.extended_options = original.extended_options.dup
+        copy
       end
     end
 
@@ -82,15 +86,5 @@ module Barbecue::Generators
       end
     end
 
-
-    # def parse_type_and_options(str)
-    #   case str
-    #   when /(image)\{(.+)\}/
-    #   else
-    #   type, options = super
-
-    #   if type == 'image'
-    #   end
-    # end
   end
 end

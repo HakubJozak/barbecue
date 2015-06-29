@@ -13,6 +13,7 @@ module Barbecue::Generators
       attr = Barbecue::Generators::GeneratedAttribute.parse 'title:string,required'
       assert attr.required?, 'not required'
       assert_equal :string, attr.type
+      assert_equal 'title:string', attr.to_rails_cli
     end
 
     test 'translated' do
@@ -32,6 +33,12 @@ module Barbecue::Generators
     test 'images' do
       attr = Barbecue::Generators::GeneratedAttribute.parse 'screenshots:images'
       assert_equal :images, attr.type
+      assert_equal nil, attr.to_rails_cli
+    end
+
+    test 'slug' do
+      attr = Barbecue::Generators::GeneratedAttribute.parse 'screenshots:slug'
+      assert_equal :slug, attr.type
       assert_equal nil, attr.to_rails_cli
     end
 
