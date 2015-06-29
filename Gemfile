@@ -18,6 +18,7 @@ group :test, :development do
   gem 'pg'
   gem 'dotenv-rails'
   gem 'pry'
+  gem 'pry-nav'  
 end
 
 # group :test do
