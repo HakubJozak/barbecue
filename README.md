@@ -12,20 +12,28 @@ application. Then sketch your models in `db/blueprint.rb` like this:
 ```ruby
   model :animal do
     string   :name, required: true
-    text     :cv, translated: true
-    integer  :position
+    string   :species, translated: true
+    text     :bio, translated: true
+    integer  :number_of_legs
     boolean  :happy
     decimal  :weight
-    datetime :arrived_at
+    datetime :born_at
     images :wildlife_photos
-  end 
+  end
+
+  model :contact do
+    
+  end
 ```
 
 And run the Blueprint generator:
 
     rails generate barbecue:blueprint --rebuild-db
 
-Run `foreman start` and behold the admin interface.
+That will use set of underlying generators to create the ActiveRecord model,
+Serializer, RESTful controller for JSON API and also the UI frontend part
+in Ember.js. Run `foreman start`, login (see `db/seed.rb' for password) and
+behold the admin interface.
 
 
 ## TODO
