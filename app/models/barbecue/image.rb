@@ -4,7 +4,7 @@ module Barbecue
 
     serialize :thumbnail_sizes, Hash
     dragonfly_accessor :photo
-    
+
     before_validation do
       if source_url_changed?
         self.photo_url = source_url
