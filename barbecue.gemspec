@@ -17,6 +17,9 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
+  s.add_dependency "parser"
+  s.add_dependency "unparser"
+
   s.add_dependency "rails", "~> 4.1"
   s.add_dependency "active_model_serializers"
   s.add_dependency "barber"
