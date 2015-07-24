@@ -40,14 +40,14 @@ Barbecue.CrudMixin = Ember.Mixin.create
     @get('title') || record.get('title')
 
   afterRemove: (record) ->
-    @goToPluralRoute record    
+    @goToPluralRoute record
     @flashInfo 'Deleted.'
 
   afterRollback: (record) ->
     @goToPluralRoute record
 
   afterSave: (record) ->
-    @goToPluralRoute record    
+    @goToPluralRoute record
     @flashInfo('Saved.')
 
   goToPluralRoute: (record = @currentModel) ->

@@ -1,7 +1,7 @@
 Barbecue.RemoveButtonComponent = Ember.Component.extend
-  layoutName: 'components/barbecue/remove-button'
+#  layoutName: 'components/barbecue/remove-button'
+  templateName: 'components/barbecue/remove-button'  
   icon: 'times'
   click: ->
-    @sendAction('remove',@get('param'))
+    @sendAction('action',@get('param'))
     false
-
