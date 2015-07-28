@@ -12,7 +12,7 @@ Barbecue.AjaxMixin = Ember.Mixin.create
           data: data
           success: (response) =>
             console.info 'Payload', response
-            @store.pushPayload('menu_item',response)
+            @store.pushPayload(options.serializer || 'menu_item',response)
             resolve(response)
 
           error: (response) =>
