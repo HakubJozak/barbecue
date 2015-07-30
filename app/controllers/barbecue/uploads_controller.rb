@@ -5,7 +5,7 @@ class Barbecue::UploadsController < Barbecue::ApplicationController
     filename = upload_params[:name].parameterize
     today = Date.today
     uuid = SecureRandom.uuid
-    
+
     @key = "#{Rails.env}/#{type}/source/#{ today.year }/#{ today.month }/#{ today.day }/#{ uuid }/#{ filename }"
 
     render json: {
