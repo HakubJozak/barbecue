@@ -33,6 +33,7 @@ class Barbecue::UploadsController < Barbecue::ApplicationController
     type = case filetype
            when %r{\Avideo/.*\z} then 'video'
            when %r{\Aimage/.*\z} then 'image'
+           when %r{\Aaudio/.*\z} then 'audio' 
            else 'document'
            end
   end
