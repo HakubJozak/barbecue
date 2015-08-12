@@ -40,7 +40,7 @@ Ember.Application.initializer
     container.register 'controller:mediaItem', Barbecue.MediaItemController
     container.register 'controller:upload', Barbecue.UploadController
     container.register 'controller:flash', Barbecue.FlashController
-    console.debug 'Barbecue 0.3'
+    console.debug 'Barbecue <%= Barbecue::VERSION %>'    
 
 Barbecue.removeTemplatePrefix = (regexp) ->
   for key,template of Ember.TEMPLATES
