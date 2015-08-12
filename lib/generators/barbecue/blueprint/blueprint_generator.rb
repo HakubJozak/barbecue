@@ -59,7 +59,7 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   end
 
   private
-  
+
   def class_path
     ''
   end

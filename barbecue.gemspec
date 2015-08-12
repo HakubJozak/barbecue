@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "parser"
   s.add_dependency "unparser"
 
-  s.add_dependency "rails", "~> 4.1"
+  s.add_dependency "rails", "~> 4.2"
   s.add_dependency "active_model_serializers"
   s.add_dependency "barber"
   # BEWARE: higher versions of ember-rails may break Emblem compilation
