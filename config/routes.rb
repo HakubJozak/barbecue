@@ -1,5 +1,6 @@
 Barbecue::Engine.routes.draw do
   resource :upload, only: [:show]
+  resources :attachments, only: :create
 
   resources :users
   resources :tags

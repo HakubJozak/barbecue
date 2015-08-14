@@ -36,7 +36,7 @@ class Barbecue::ControllerGenerator < Rails::Generators::ScaffoldControllerGener
   def permitted_attributes
     scalars = []
     other = []
-    
+
 
     attributes.map(&:to_permitted).each do |a|
       if a.is_a?(Symbol)

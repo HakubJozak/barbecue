@@ -1,5 +1,6 @@
 require_relative 'generated_attribute'
 
+
 module Barbecue::Generators
   class ImagesAttribute < GeneratedAttribute
 
@@ -13,7 +14,7 @@ module Barbecue::Generators
 
     def ember_type_for_root
       "return 'image' if key == '#{ember_name}'"
-    end    
+    end
 
     def ember_embedded_record
       "#{ ember_name }:  { serialize: 'records', deserialize: 'records' }"
