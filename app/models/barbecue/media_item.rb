@@ -4,10 +4,6 @@ class Barbecue::MediaItem < ActiveRecord::Base
   translates :copyright
   #  belongs_to :owner, polymorphic: true
 
-  # Relations
   # has_many :media_placements
   # has_many :owners, through: :media_placements
-
-  # Validations
-  validates :source_url, presence: true
 end

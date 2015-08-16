@@ -1,6 +1,7 @@
 module Barbecue
   class Image < MediaItem
     translates :title, :copyright
+    validates :source_url, presence: true
 
     serialize :thumbnail_sizes, Hash
     dragonfly_accessor :photo
