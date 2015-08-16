@@ -13,23 +13,22 @@ I18n =
         cs: { name: 'Czech' }
         en: { name: 'English' }
 
-  t: (key) ->
-
-    uiLocale = 'en'
-
+  translate: (key) ->
     if key
       bits = key.toString().split('.')
-      context = I18n.translations[uiLocale]
+      context = I18n.translations[I18n.locale]
 
       for bit in bits
         if context[bit]
           context = context[bit]
         else
-          console.error "Missing key #{key}."
+          console.error "Missing key '#{key}'."
           return key
 
       context
     else
       console.error 'Missing translation key.'
+
+I18n.t = I18n.translate
 
 window.I18n = I18n
