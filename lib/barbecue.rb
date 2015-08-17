@@ -1,3 +1,4 @@
+require_relative "barbecue/version"
 require_relative "barbecue/engine"
 require_relative "barbecue/generators"
 require_relative "barbecue/generators/generated_attribute"
