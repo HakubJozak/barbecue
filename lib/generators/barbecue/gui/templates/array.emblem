@@ -5,18 +5,17 @@
   table.table
     thead
       <%- attributes.each do |attr| -%>
-      th <%= attr.name.humanize %>
+      th <%= attr.field_name %>
       <%- end -%>
       th
     tbody
-      each <%= singular %> in this itemController='<%= singular %>'
+      each <%= singular.camelize(:lower) %> in this itemController='<%= singular %>'
         tr
           <%- attributes.each do |attr| -%>
-          td
-            <%= attr.ember_list_label(singular) -%>          
+          td = <%= attr.ember_list_label(singular.camelize(:lower)) %>
           <%- end -%>
           td
-            = link-to '<%= singular %>' <%= singular %>
+            = link-to '<%= singular %>' <%= singular.camelize(:lower) %>
               ' Edit
 
 
