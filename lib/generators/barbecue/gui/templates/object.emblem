@@ -3,7 +3,7 @@ h3
 
 form submit="save" class="form"
   <%- attributes.each do |attr| -%>
-<%= attr.ember_field %>
+<%= attr.ember_field(name) %>
   <%- end -%>
 
   .button-group

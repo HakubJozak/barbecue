@@ -28,7 +28,7 @@ module Barbecue::Generators
       "#{ model_variable }.#{ ember_name }.size"
     end
 
-    def ember_field
+    def ember_field(model_name)
 <<FIELD
   .form-group
     label.control-label #{name.humanize}

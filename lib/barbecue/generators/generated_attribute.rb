@@ -67,7 +67,6 @@ module Barbecue::Generators
       !!@extended_options[:translated]
     end
 
-
     def parse_extended_options!
       bits = type.to_s.split(',')
       self.type = bits.shift.to_sym
@@ -76,6 +75,10 @@ module Barbecue::Generators
       bits.each do |bit|
         @extended_options[bit.to_sym] = true
       end
+    end
+
+    def field_name(model_name)
+      human_name
     end
 
     private

@@ -9,7 +9,7 @@ module Barbecue::Generators
 
     def ember_type_for_root
       "return 'image' if key == '#{ember_name}'"
-    end    
+    end
 
     def ember_data_type
       "DS.belongsTo 'image'"
@@ -23,7 +23,7 @@ module Barbecue::Generators
       "img src=#{ model_variable }.#{ ember_name }.thumbnailUrl height='50'"
     end
 
-    def ember_field
+    def ember_field(model_name)
 <<FIELD
   .form-group
     label.control-label #{name.humanize}
