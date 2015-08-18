@@ -16,7 +16,7 @@ module Barbecue::Generators
 
     def ember_field
       <<EMBLEM_FIELD
-  view 'form-group' attr="#{name}" translated=#{translated?.to_s}
+  view 'form-group' attr="#{ember_name}" translated=#{translated?.to_s}
     label.control-label #{human_name}
     #{input_field(self)}
 EMBLEM_FIELD
