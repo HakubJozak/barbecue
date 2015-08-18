@@ -14,10 +14,14 @@ module Barbecue::Generators
       "#{ model_variable }.#{ ember_name }"
     end
 
+    def field_name
+      human_name
+    end
+
     def ember_field
       <<EMBLEM_FIELD
   view 'form-group' attr="#{ember_name}" translated=#{translated?.to_s}
-    label.control-label #{human_name}
+    label.control-label #{field_name}
     #{input_field(self)}
 EMBLEM_FIELD
     end

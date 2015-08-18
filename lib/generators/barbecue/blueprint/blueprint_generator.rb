@@ -6,9 +6,12 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
   argument :filename, type: :string, default: 'db/blueprint.rb'
 
-  class_option :migration, type: :boolean
   class_option :menu, type: :boolean, default: true
   class_option :rebuild_db, type: :boolean, default: false
+
+  class_option :generate_ui, type: :boolean, default: true
+  class_option :generate_controller, type: :boolean, default: true
+  class_option :generate_model, type: :boolean, default: true    
 
   include Ember::Generators::GeneratorHelpers
   include Barbecue::GeneratorHelpers
@@ -19,6 +22,8 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   end
 
   def create_media
+    return unless @blueprint.enabled?(:model)
+    
     if @blueprint.uses? :images
       call! 'barbecue:media', [ force_flag, migration_flag ]
     else
@@ -26,29 +31,46 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
     end
   end
 
-  def create_files
+  def create_models
+    return unless @blueprint.enabled?(:model)
+
     @blueprint.models.each do |model|
         call! 'barbecue:model', [ model.name.to_s,
                                   model.attributes.to_cli,
-                                  force_flag, migration_flag ].flatten
-
-        call! 'barbecue:controller',
-                                 [ "admin/#{model.name}",
-                                   model.attributes.to_cli,
-                                   force_flag
-                                 ].flatten
-
-        call! 'barbecue:gui', [ model.name.to_s,
-                                model.attributes.to_cli,
-                                force_flag ].flatten
+                                  flags_for(:model),
+                                  force_flag ].flatten
       end
   end
 
+  def create_controllers
+    return unless @blueprint.enabled?(:controller)
+
+    @blueprint.models.each do |model|
+        call! 'barbecue:controller',
+                                 [ "admin/#{model.name}",
+                                   model.attributes.to_cli,
+                                   flags_for(:controller),
+                                   force_flag
+                                 ].flatten
+    end
+  end
+
+  def create_admin
+    return unless @blueprint.enabled?(:admin)
+    
+    @blueprint.models.each do |model|
+      call! 'barbecue:gui', [ model.name.to_s,
+                              model.attributes.to_cli,
+                              flags_for(:admin),
+                              force_flag ].flatten
+    end
+  end
+
   def create_menu
+    return unless @blueprint.enabled?(:admin)
+
     if options[:menu]
       template "_menu.emblem", templates_path("partials/_menu.emblem")
-    else
-      say 'Skipping menu'
     end
   end
 
@@ -59,6 +81,10 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   end
 
   private
+
+  def flags_for(generator_name)
+    @blueprint.flags[generator_name].try(:split)
+  end
 
   def class_path
     ''
