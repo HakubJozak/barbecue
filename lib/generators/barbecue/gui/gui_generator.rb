@@ -16,7 +16,7 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
   class_option :model, type: :boolean, default: true
   class_option :controller, type: :boolean, default: true
   class_option :serializer, type: :boolean, default: true
-  class_option :routes, type: :boolean, default: true  
+  class_option :routes, type: :boolean, default: true
 
   def create_template_files
     return unless options[:views]

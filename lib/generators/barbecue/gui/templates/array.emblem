@@ -4,16 +4,16 @@
 
   table.table
     thead
-      <%- attributes.each do |attr| -%>
+      <%- attributes[0..2].each do |attr| -%>
       th <%= attr.field_name(name) %>
       <%- end -%>
       th
     tbody
       each <%= singular.camelize(:lower) %> in this itemController='<%= singular %>'
         tr
-          <%- attributes.each do |attr| -%>
+          <%- attributes[0..2].each do |attr| -%>
           td
-            <%= attr.ember_list_label(singular.camelize(:lower)) -%>
+            <%= attr.ember_list_label(singular.camelize(:lower)) %>
           <%- end -%>
           td
             = link-to '<%= singular %>' <%= singular.camelize(:lower) %>
