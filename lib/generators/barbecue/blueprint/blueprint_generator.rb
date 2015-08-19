@@ -6,6 +6,7 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
   argument :filename, type: :string, default: 'db/blueprint.rb'
 
+  class_option :media, type: :boolean, default: true
   class_option :menu, type: :boolean, default: true
   class_option :rebuild_db, type: :boolean, default: false
 
@@ -26,6 +27,7 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
 
   def create_media
     return unless @blueprint.enabled?(:model)
+    return unless options[:media]
 
     if @blueprint.uses? :images
       call! 'barbecue:media', [ force_flag, migration_flag ]
