@@ -12,7 +12,8 @@
       each <%= singular.camelize(:lower) %> in this itemController='<%= singular %>'
         tr
           <%- attributes.each do |attr| -%>
-          td = <%= attr.ember_list_label(singular.camelize(:lower)) %>
+          td
+            <%= attr.ember_list_label(singular.camelize(:lower)) -%>
           <%- end -%>
           td
             = link-to '<%= singular %>' <%= singular.camelize(:lower) %>

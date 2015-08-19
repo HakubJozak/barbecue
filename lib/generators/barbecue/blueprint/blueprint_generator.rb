@@ -9,9 +9,12 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   class_option :menu, type: :boolean, default: true
   class_option :rebuild_db, type: :boolean, default: false
 
-  class_option :generate_ui, type: :boolean, default: true
-  class_option :generate_controller, type: :boolean, default: true
-  class_option :generate_model, type: :boolean, default: true    
+  class_option :only, type: :string
+
+  # TODO
+  # class_option :generate_ui, type: :boolean, default: true
+  # class_option :generate_controller, type: :boolean, default: true
+  # class_option :generate_model, type: :boolean, default: true
 
   include Ember::Generators::GeneratorHelpers
   include Barbecue::GeneratorHelpers
@@ -23,7 +26,7 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
 
   def create_media
     return unless @blueprint.enabled?(:model)
-    
+
     if @blueprint.uses? :images
       call! 'barbecue:media', [ force_flag, migration_flag ]
     else
@@ -34,7 +37,7 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   def create_models
     return unless @blueprint.enabled?(:model)
 
-    @blueprint.models.each do |model|
+    each_model do |model|
         call! 'barbecue:model', [ model.name.to_s,
                                   model.attributes.to_cli,
                                   flags_for(:model),
@@ -45,7 +48,7 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   def create_controllers
     return unless @blueprint.enabled?(:controller)
 
-    @blueprint.models.each do |model|
+    each_model do |model|
         call! 'barbecue:controller',
                                  [ "admin/#{model.name}",
                                    model.attributes.to_cli,
@@ -57,8 +60,8 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
 
   def create_admin
     return unless @blueprint.enabled?(:admin)
-    
-    @blueprint.models.each do |model|
+
+    each_model do |model|
       call! 'barbecue:gui', [ model.name.to_s,
                               model.attributes.to_cli,
                               flags_for(:admin),
@@ -81,6 +84,17 @@ class Barbecue::BlueprintGenerator < Rails::Generators::Base
   end
 
   private
+
+  def each_model
+    selected = if options[:only].present?
+                 names = options[:only].split(',').map { |n| n.strip }
+                 @blueprint.models.select { |m| names.include?(m.name.to_s) }
+               else
+                 @blueprint.models
+               end
+
+    selected.each { |model| yield(model) }
+  end
 
   def flags_for(generator_name)
     @blueprint.flags[generator_name].try(:split)
