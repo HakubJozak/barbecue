@@ -1,13 +1,12 @@
 module Barbecue
   class Image < MediaItem
     translates :title, :copyright
-    validates :source_url, presence: true
 
     serialize :thumbnail_sizes, Hash
     dragonfly_accessor :photo
 
     before_validation do
-      if source_uid_changed?
+      if photo_uid_changed?
         self.thumbnail_sizes = {}
       end
     end
