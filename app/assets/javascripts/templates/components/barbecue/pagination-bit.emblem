@@ -1,0 +1,9 @@
+if view.active
+  a.navbar-link
+    = model
+else
+  if view.link
+    a.navbar-link
+        = model
+  else
+    span = model

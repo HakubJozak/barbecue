@@ -1,37 +1,22 @@
-p.navbar-text.navbar-right.pagination-info title='Total records found.'
-  ' / {{total}}
+p.navbar-text title='Total records found.'
+ ' {{model.per_page}} / {{model.total}}
 
-form.navbar-form.navbar-right
-  .form-group title='Records per page.'
-    = view 'per_page_select' value=perPage
-
-ul.nav.navbar.pagination.navbar-right
-  li{ bind-attr class="previous_page::disabled" }
-    if previous_page
-      a.navbar-link{ action "set_page" previous_page } href='#'
-        ' &laquo;
-    else
-      a.navbar-link
-        ' &laquo;
-  each pagination_bits itemController='pagination_bit'
-    if active
-      li.active
-        a.navbar-link href='#'
-          = content
-    else
-      if link
-        li
-          a.navbar-link{ action "set_page" this }  href='#'
-            = content
+nav
+  ul.nav.navbar.pagination.navbar-left
+    li{ bind-attr class="previous_page::disabled" }
+      if previous_page
+        a.navbar-link{ action "setPage" previous_page } href='#'
+          ' &laquo;
       else
-        li.disabled
-          span = content
+        a.navbar-link
+          ' &laquo;
+    each bit in model.pagination_bits
+      bbq-pagination-bit model=bit pagination=model currentPage=currentPage
 
-
-  li{ bind-attr class="next_page::disabled" }
-    if next_page
-      a.navbar-link{ action "set_page" next_page } href='#'
-        ' &raquo;
-    else
-      a.navbar-link
-        ' &raquo;
+    li{ bind-attr class="next_page::disabled" }
+      if next_page
+        a.navbar-link{ action "setPage" next_page } href='#'
+          ' &raquo;
+      else
+        a.navbar-link
+          ' &raquo;

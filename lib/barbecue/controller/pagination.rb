@@ -56,6 +56,6 @@ module Barbecue::Controller::Pagination
       end.flatten
     end
   end
-  
+
 
 end
