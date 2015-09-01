@@ -20,6 +20,6 @@ Barbecue.ModelAjaxMixin = Ember.Mixin.create
 
 
   post: (url, data) ->
-    @_ajax url, 'PUT', { data: data }
+    @_ajax url, 'POST', { data: data }
 
 
