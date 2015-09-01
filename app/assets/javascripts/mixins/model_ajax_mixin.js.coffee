@@ -7,14 +7,19 @@ Barbecue.ModelAjaxMixin = Ember.Mixin.create
     adapter = store.adapterFor type
     url     = '%@/%@/%@'.fmt adapter.buildURL(type.typeKey), id, url
 
-    adapter.ajax(url, method, options).then (response) =>
+    success = (response) =>
       store.pushPayload(type.typeKey,response)
       console.info 'inserted'
 
+    error = (response) =>
+      # TODO: handle becameInvalid!
+      # see http://emberjs.com/api/data/classes/DS.RootState.html  
+      @get('errors').add('rejectReson','sdfdsfdsf')
+      
+    adapter.ajax(url, method, options).then success,error
 
 
-
-  post: (url, options) ->
-    @_ajax url, 'POST', options
+  post: (url, data) ->
+    @_ajax url, 'PUT', { data: data }
 
 
