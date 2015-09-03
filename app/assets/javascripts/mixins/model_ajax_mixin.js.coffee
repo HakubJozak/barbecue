@@ -9,7 +9,7 @@ Barbecue.ModelAjaxMixin = Ember.Mixin.create
 
     success = (response) =>
       store.pushPayload(type.typeKey,response)
-      console.info 'inserted'
+      @adapterDidCommit()
 
     error = (response) =>
       # we have to manually add the errors  
