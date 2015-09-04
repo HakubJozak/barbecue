@@ -1,22 +1,21 @@
 p.navbar-text title='Total records found.'
  ' {{model.per_page}} / {{model.total}}
 
-nav
-  ul.nav.navbar.pagination.navbar-left
-    li{ bind-attr class="previous_page::disabled" }
-      if previous_page
-        a.navbar-link{ action "setPage" previous_page } href='#'
-          ' &laquo;
-      else
-        a.navbar-link
-          ' &laquo;
-    each bit in model.pagination_bits
-      bbq-pagination-bit model=bit pagination=model currentPage=currentPage
+ul.pagination.navbar-left
+  li{ bind-attr class="previous_page::disabled" }
+    if previous_page
+      a.navbar-link{ action "setPage" previous_page } href='#'
+        ' &laquo;
+    else
+      a.navbar-link
+        ' &laquo;
+  each bit in model.pagination_bits
+    bbq-pagination-bit model=bit pagination=model currentPage=currentPage
 
-    li{ bind-attr class="next_page::disabled" }
-      if next_page
-        a.navbar-link{ action "setPage" next_page } href='#'
-          ' &raquo;
-      else
-        a.navbar-link
-          ' &raquo;
+  li{ bind-attr class="next_page::disabled" }
+    if next_page
+      a.navbar-link{ action "setPage" next_page } href='#'
+        ' &raquo;
+    else
+      a.navbar-link
+        ' &raquo;
