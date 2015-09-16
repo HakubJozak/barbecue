@@ -28,7 +28,7 @@ module Barbecue
     private
 
     def compute_sizes(size)
-      thumbnail = self.photo.thumb(size, format: :jpg).encode('jpg', '-quality 80')
+      thumbnail = self.photo.thumb(size, format: :jpg).encode('jpg', '-quality 95')
       {
         uid: thumbnail.store,
         signature: thumbnail.signature,
