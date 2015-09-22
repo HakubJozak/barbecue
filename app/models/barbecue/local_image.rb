@@ -1,12 +1,11 @@
 module Barbecue
-  class Image < MediaItem
+  class LocalImage < MediaItem
     include Thumbnails
 
     translates :title, :copyright
-    validates :source_url, presence: true
 
     def reset_thumbnails
-      if source_url_changed?
+      if photo_uid_changed?
         self.thumbnail_sizes = {}
       end
     end
