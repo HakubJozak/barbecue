@@ -39,9 +39,7 @@ Barbecue.UploadWidgetComponent = Ember.Component.extend
 
       if Ember.isEmpty(@get('saveAction'))
         owner.save()
-      else  
+      else
         @sendAction('saveAction',image)
 
       false
-
-          

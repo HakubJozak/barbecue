@@ -1,6 +1,6 @@
 .btn.btn-default.btn-file.text-center
   ' {{fa 'plus'}} Upload
-  upload-button progressed="setProgress" uploaded="saveSourceUrl" 
+  upload-button progressed="setProgress" uploaded="saveSourceUrl"
 
 if isUploading
   bbq-progress-bar value=progress
