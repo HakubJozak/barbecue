@@ -1,15 +1,11 @@
 module Barbecue
-  class Image < MediaItem
-    include Thumbnails
+  module Thumbnails
+    extend ActiveSupport::Concern
 
-    translates :title, :copyright
-    serialize :thumbnail_sizes, Hash
-    dragonfly_accessor :photo
-
-    before_validation do
-      if photo_uid_changed?
-        self.thumbnail_sizes = {}
-      end
+    included do
+      serialize :thumbnail_sizes, Hash
+      dragonfly_accessor :photo
+      before_validation :reset_thumbnails      
     end
 
     # User w_x_h = 400x250# or similar
@@ -29,7 +25,7 @@ module Barbecue
     private
 
     def compute_sizes(size)
-      thumbnail = self.photo.thumb(size, format: :jpg).encode('jpg', '-quality 95')
+      thumbnail = self.photo.thumb(size, format: :jpg).encode('jpg', '-quality 80')
       {
         uid: thumbnail.store,
         signature: thumbnail.signature,
@@ -38,11 +34,7 @@ module Barbecue
         height: thumbnail.height
       }
     end
-
-    def reset_thumbnails
-      if source_url_changed?
-        self.thumbnail_sizes = {}
-      end
-    end
-  end
+    
+  end  
 end
+

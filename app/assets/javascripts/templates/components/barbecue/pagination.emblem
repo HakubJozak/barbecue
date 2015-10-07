@@ -1,8 +1,8 @@
 p.navbar-text title='Total records found.'
  ' {{model.per_page}} / {{model.total}}
 
-nav
-  ul.nav.navbar.pagination.navbar-left
+unless justOnePage
+  ul.pagination.navbar-left
     li{ bind-attr class="previous_page::disabled" }
       if previous_page
         a.navbar-link{ action "setPage" previous_page } href='#'

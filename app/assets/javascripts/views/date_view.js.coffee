@@ -1,5 +1,5 @@
 #
-# Usage: date dateBinding='yourVariableWithIsodate'
+# Usage: view 'date' dateBinding='yourVariableWithIsodate'
 #
 Barbecue.DateView = Ember.TextField.extend
   type: 'date'
@@ -25,7 +25,7 @@ Barbecue.DateView = Ember.TextField.extend
     return if @get('hasFocus')
     date = @get('date')
 
-    unless date == 'undefined'
+    if date?
       @set('value', moment(date).format(@get('dateFormat')))
   ).observes('date')
 

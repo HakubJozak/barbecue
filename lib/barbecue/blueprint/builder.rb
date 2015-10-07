@@ -7,7 +7,7 @@ class Barbecue::Blueprint::Builder
     @generators = {
       controller: true,
       model: true,
-      admin: true,      
+      admin: true,
     }
     @flags = {}
   end
@@ -34,7 +34,7 @@ class Barbecue::Blueprint::Builder
     @flags[key] = flags if flags
   end
 
-  alias :flags_for :enable 
+  alias :flags_for :enable
 
   def disable(key)
     @generators[key] = false

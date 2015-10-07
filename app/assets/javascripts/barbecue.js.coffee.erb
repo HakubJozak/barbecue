@@ -25,7 +25,9 @@ Ember.Application.initializer
   initialize: (container,application) ->
     # FYI: store = container.lookup('store:main')
     # FYI: adapter = container.lookup('adapter:application')
+    # deprecated    
     container.register 'component:link-li', Barbecue.LinkLiComponent
+    container.register 'component:bbq-active-li', Barbecue.LinkLiComponent    
     container.register 'component:bbq-active-tr', Barbecue.ActiveTrComponent
     container.register 'component:upload-button', Barbecue.UploadButtonComponent
     container.register 'component:bbq-progress-bar', Barbecue.ProgressBar
