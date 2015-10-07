@@ -18,6 +18,13 @@ require_relative 'barbecue/blueprint/builder'
 
 
 module Barbecue
-  mattr_accessor :parent_controller
   @@parent_controller = "Admin::BaseController"
+
+  def self.parent_controller
+    @@parent_controller.constantize
+  rescue NameError
+    puts "BBQ: '#{@@parent_controller}' not found. Falling back to ApplicationController"
+    'ApplicationController'.constantize
+  end
+
 end

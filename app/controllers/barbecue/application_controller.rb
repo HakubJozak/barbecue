@@ -1,4 +1,4 @@
 module Barbecue
-  class ApplicationController < Barbecue.parent_controller.constantize
+  class ApplicationController < Barbecue.parent_controller
   end
 end
