@@ -29,6 +29,8 @@ I18n =
     else
       console.error 'Missing translation key.'
 
-I18n.t = I18n.translate
+# alias
+I18n.t = ->
+  I18n.translate.apply(this,arguments)      
 
 window.I18n = I18n

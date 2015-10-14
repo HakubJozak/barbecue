@@ -15,8 +15,9 @@ Barbecue.DateView = Ember.TextField.extend
   updateDate: (->
     ms = moment(@get('value'), @get('dateFormat'))
 
-    if ms and ms.isValid()
-      @set('date', ms)
+    if ms
+      if ms.isValid()
+        @set('date', ms)
     else
       @set('date', null)
   ).observes('value')
