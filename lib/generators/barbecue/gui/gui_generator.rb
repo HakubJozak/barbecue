@@ -28,7 +28,6 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
     return unless options[:routes]
     template 'array_route.js.coffee', routes_path("#{file_name.pluralize}_route.js.coffee")
     template 'object_route.js.coffee', routes_path("#{file_name}_route.js.coffee")
-    template 'new_route.js.coffee', routes_path("#{file_name.pluralize}_new_route.js.coffee")
   end
 
   def create_controller
@@ -50,9 +49,8 @@ class Barbecue::GuiGenerator < Ember::Generators::TemplateGenerator
     return unless options[:routes]
     routing  = <<-ROUTING
 
-  @resource '#{plural}', ->
-    @resource '#{singular}', {path: ':#{singular}_id'}
-    @route 'new'
+  @resource '#{plural}'
+  @resource '#{singular}', { path: '#{plural}/:id'}
 ROUTING
 
     inject_into_file File.join(ember_path,'router.js.coffee'),routing,before: /\z/
