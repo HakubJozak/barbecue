@@ -5,7 +5,7 @@ module Barbecue
     included do
       serialize :thumbnail_sizes, Hash
       dragonfly_accessor :photo
-      before_validation :reset_thumbnails      
+      before_validation :reset_thumbnails
     end
 
     # User w_x_h = 400x250# or similar
@@ -34,7 +34,6 @@ module Barbecue
         height: thumbnail.height
       }
     end
-    
-  end  
-end
 
+  end
+end

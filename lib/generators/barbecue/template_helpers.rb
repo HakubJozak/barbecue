@@ -14,8 +14,8 @@ module Barbecue::TemplateHelpers
   end
 
   def date_field(attr)
-    binding = without_locale(attr).camelize(:lower)
-    %{= view 'date' dateBinding='#{binding}'}
+    var = without_locale(attr).camelize(:lower)
+    %{= view 'date' dateBinding='#{var}'}
   end
 
   def boolean_field(attr)
@@ -42,7 +42,7 @@ module Barbecue::TemplateHelpers
     when :integer then string_field(attr,'number')
     when :decimal then string_field(attr,'number',step: '"0.01"')
     when :email then string_field(attr,'email')
-    when :datetime then date_field(attr)
+    when :datetime, :date then date_field(attr)
     else string_field(attr)
     end
   end

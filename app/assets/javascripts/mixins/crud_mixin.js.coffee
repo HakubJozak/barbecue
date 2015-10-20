@@ -2,7 +2,10 @@ Barbecue.CrudMixin = Ember.Mixin.create
   actions:
     save: (record) ->
       record ||= @_guessRecord()
-      record.get('errors').clear()
+
+      if errors = record.get('errors')
+        errors.clear()
+
       record.save().then ( (saved_record) =>
         @afterSave(saved_record)
        ), ( (e) =>
@@ -12,7 +15,10 @@ Barbecue.CrudMixin = Ember.Mixin.create
 
     rollback: (record) ->
       record ||= @_guessRecord()
-      record.get('errors').clear()
+
+      if errors = record.get('errors')
+        errors.clear()
+         
       record.rollback()
       @afterRollback()
       false

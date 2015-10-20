@@ -1,4 +1,6 @@
 <%= application_name.camelize %>.<%= class_name.camelize %>Route = <%= application_name.camelize %>.BaseRoute.extend
   model: (params) ->
-    @store.find('<%= name %>',params.<%= name %>_id)
-
+    if params.id == 'new'
+      @store.createRecord('<%= name %>')
+    else
+      @store.find('<%= name %>',params.id)
