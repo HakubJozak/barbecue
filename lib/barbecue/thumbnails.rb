@@ -19,6 +19,16 @@ module Barbecue
         thumbnail_sizes[w_x_h] = compute_sizes(w_x_h)
         update_column(:thumbnail_sizes,thumbnail_sizes)
         OpenStruct.new(thumbnail_sizes[w_x_h])
+
+        GenerateThumbnailJob.perform_later(self, size)
+        sizes = size.split("x")
+        OpenStruct.new(
+          uid: nil,
+          signature: nil,
+          url: "http://dummyimage.com/#{size}/FFF/000.png&text=Generating…",
+          width: sizes[0].to_i,
+          height: sizes[1].to_i
+        )
       end
     end
 
