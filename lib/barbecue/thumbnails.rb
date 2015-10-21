@@ -16,12 +16,12 @@ module Barbecue
         ret.url = Dragonfly.app.remote_url_for(ret.uid)
         ret
       else
-        Barbecue::GenerateThumbnailJob.perform_later(self, size)
-        sizes = size.split("x")
+        Barbecue::GenerateThumbnailJob.perform_later(self, w_x_h)
+        sizes = w_x_h.split("x")
         OpenStruct.new(
           uid: nil,
           signature: nil,
-          url: "http://dummyimage.com/#{size}/FFF/000.png&text=Generating…",
+          url: "http://dummyimage.com/#{w_x_h}/FFF/000.png&text=Generating…",
           width: sizes[0].to_i,
           height: sizes[1].to_i
         )
