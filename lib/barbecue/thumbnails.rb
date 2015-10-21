@@ -28,6 +28,12 @@ module Barbecue
       end
     end
 
+    def reset_thumbnails
+      if photo_uid_changed?
+        self.thumbnail_sizes = {}
+      end
+    end
+
     private
 
     def compute_sizes(size)
@@ -39,12 +45,6 @@ module Barbecue
         width: thumbnail.width,
         height: thumbnail.height
       }
-    end
-
-    def reset_thumbnails
-      if photo_uid_changed?
-        self.thumbnail_sizes = {}
-      end
     end
 
   end
