@@ -5,7 +5,7 @@ module Barbecue
     def perform(image, size)
       sizes = image.thumbnail_sizes[size] = compute_sizes(image, size)
       image.update_attributes(thumbnail_sizes: image.thumbnail_sizes)
-      OpenStruct.new(sizes)
+      # OpenStruct.new(sizes)
     end
 
 

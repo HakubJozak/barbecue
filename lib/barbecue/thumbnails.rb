@@ -16,11 +16,7 @@ module Barbecue
         ret.url = Dragonfly.app.remote_url_for(ret.uid)
         ret
       else
-        thumbnail_sizes[w_x_h] = compute_sizes(w_x_h)
-        update_column(:thumbnail_sizes,thumbnail_sizes)
-        OpenStruct.new(thumbnail_sizes[w_x_h])
-
-        GenerateThumbnailJob.perform_later(self, size)
+        Barbecue::GenerateThumbnailJob.perform_later(self, size)
         sizes = size.split("x")
         OpenStruct.new(
           uid: nil,
@@ -35,7 +31,7 @@ module Barbecue
     private
 
     def compute_sizes(size)
-      thumbnail = self.photo.thumb(size, format: :jpg).encode('jpg', '-quality 80')
+      thumbnail = self.photo.thumb(size, format: :jpg).encode('jpg', '-quality 85')
       {
         uid: thumbnail.store,
         signature: thumbnail.signature,
@@ -43,6 +39,12 @@ module Barbecue
         width: thumbnail.width,
         height: thumbnail.height
       }
+    end
+
+    def reset_thumbnails
+      if photo_uid_changed?
+        self.thumbnail_sizes = {}
+      end
     end
 
   end

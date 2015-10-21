@@ -3,46 +3,14 @@ module Barbecue
     include Thumbnails
 
     translates :title, :copyright
-    serialize :thumbnail_sizes, Hash
-    dragonfly_accessor :photo
-
-    before_validation do
-      if photo_uid_changed?
-        self.thumbnail_sizes = {}
-      end
-    end
-
-    # User w_x_h = 400x250# or similar
-    #
-    def thumb(w_x_h)
-      if sizes = thumbnail_sizes[w_x_h]
-        ret = OpenStruct.new(sizes)
-        ret.url = Dragonfly.app.remote_url_for(ret.uid)
-        ret
-      else
-        thumbnail_sizes[w_x_h] = compute_sizes(w_x_h)
-        update_column(:thumbnail_sizes,thumbnail_sizes)
-        OpenStruct.new(thumbnail_sizes[w_x_h])
-      end
-    end
+    after_create :set_photo_url
 
     private
-
-    def compute_sizes(size)
-      thumbnail = self.photo.thumb(size, format: :jpg).encode('jpg', '-quality 95')
-      {
-        uid: thumbnail.store,
-        signature: thumbnail.signature,
-        url: thumbnail.url,
-        width: thumbnail.width,
-        height: thumbnail.height
-      }
-    end
-
-    def reset_thumbnails
-      if source_url_changed?
-        self.thumbnail_sizes = {}
+    def set_photo_url
+      if !self.source_url.nil? && !self.source_url.empty?
+        self.update_attribute(:photo_url, self.source_url)
       end
     end
+
   end
 end
