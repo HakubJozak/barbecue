@@ -6,7 +6,7 @@ module Barbecue
     after_create :set_photo_url
 
     def landscape?
-      self.width >= self.height
+      self.photo.width >= self.photo.height
     end
 
     private
