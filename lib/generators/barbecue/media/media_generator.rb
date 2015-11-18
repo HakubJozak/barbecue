@@ -39,11 +39,16 @@ class Barbecue::MediaGenerator < Rails::Generators::Base
       t.string   :source_url, limit: 2048
       t.string   :type, default: 'Image', null: false
       t.integer  :owner_id
-      t.integer  :owner_type
+      t.string   :owner_type
       t.string   :photo_uid
       t.string   :photo_name
       t.string   :cover_url, limit: 2048
       t.text     :thumbnail_sizes, default: "--- {}\\n"
+      t.bigint   :photo_size
+      t.integer  :photo_width
+      t.integer  :photo_height
+      t.float    :photo_aspect_ratio
+      t.string   :photo_format, limit: 4
       t.timestamps null: false
     end
 MIGRATION

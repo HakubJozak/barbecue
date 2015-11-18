@@ -5,6 +5,10 @@ module Barbecue
     translates :title, :copyright
     after_create :set_photo_url
 
+    def landscape?
+      self.width >= self.height
+    end
+
     private
     def set_photo_url
       if !self.source_url.nil? && !self.source_url.empty?
