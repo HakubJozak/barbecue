@@ -3,9 +3,10 @@ module Barbecue
     queue_as :slow
 
     def perform(image, size)
-      sizes = image.thumbnail_sizes[size] = compute_sizes(image, size)
-      image.update_attributes(thumbnail_sizes: image.thumbnail_sizes)
-      # OpenStruct.new(sizes)
+      unless image.thumbnail_sizes[size]
+        sizes = image.thumbnail_sizes[size] = compute_sizes(image, size)
+        image.update_attributes(thumbnail_sizes: image.thumbnail_sizes)
+      end
     end
 
 
