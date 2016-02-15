@@ -13,7 +13,7 @@ module Barbecue
     def thumb(w_x_h)
       if sizes = thumbnail_sizes[w_x_h]
         ret = OpenStruct.new(sizes)
-        ret.url = Dragonfly.app.remote_url_for(ret.uid)
+        ret.url = Dragonfly.app.remote_url_for(ret.uid, scheme: 'https')
         ret
       else
         Barbecue::GenerateThumbnailJob.perform_later(self, w_x_h)
