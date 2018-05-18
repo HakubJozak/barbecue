@@ -4,7 +4,9 @@ module Barbecue
 
     included do
       serialize :thumbnail_sizes, Hash
-      dragonfly_accessor :photo
+      dragonfly_accessor :photo do
+        after_assign :sanitize_filename
+      end
       before_validation :reset_thumbnails
     end
 
@@ -36,16 +38,24 @@ module Barbecue
 
     private
 
-    def compute_sizes(size)
-      thumbnail = self.photo.thumb(size, format: :jpg).encode('jpg', '-quality 85')
-      {
-        uid: thumbnail.store,
-        signature: thumbnail.signature,
-        url: thumbnail.url,
-        width: thumbnail.width,
-        height: thumbnail.height
-      }
-    end
+      def compute_sizes(size)
+        thumbnail = self.photo.thumb(size, format: :jpg).encode('jpg', '-quality 85')
+        {
+          uid: thumbnail.store,
+          signature: thumbnail.signature,
+          url: thumbnail.url,
+          width: thumbnail.width,
+          height: thumbnail.height
+        }
+      end
+
+    private
+
+      def sanitize_filename
+        # file name can be blank when assigning via file_url
+        return if photo.name.blank?
+        self.photo.name = photo.name.split('.').map(&:parameterize).join('.')
+      end
 
   end
 end
